@@ -19,7 +19,6 @@ public class CakeData : MonoBehaviour
     private string cName;
     private string cSize;
     private string cFlavour;
-    public Text testingText;
 
     public GameObject cakeNamePanel;
     int show;
@@ -29,7 +28,7 @@ public class CakeData : MonoBehaviour
     public GameObject warningPanel;
     public Text warningText;
     public GameObject cake;
-    public GameObject [] theCake;
+    public GameObject[] theCake;
     private bool empty;
     public Button order;
 
@@ -46,7 +45,7 @@ public class CakeData : MonoBehaviour
         filepath = Application.persistentDataPath + "/CakeDB.sqlite";
         connectionString = "URI=file:" + filepath;
     }
-    private void SaveCake(string name, string size, string flavour,byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
+    private void SaveCake(string name, string size, string flavour, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
     {
         using (IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
@@ -54,22 +53,22 @@ public class CakeData : MonoBehaviour
             using (IDbCommand dbCmd = dbConnection.CreateCommand())
             {
 
-                string sqlQuery = String.Format("INSERT INTO Cake(Name,Size,Flavour,Image1,Image2,Image3,Image4,SavedDate) VALUES(\"{0}\",\"{1}\",\"{2}\",@image1,@image2,@image3,@image4,datetime(CURRENT_TIMESTAMP,'localtime'))", name, size, flavour, bytes1,bytes2,bytes3,bytes4);
+                string sqlQuery = String.Format("INSERT INTO Cake(Name,Size,Flavour,Image1,Image2,Image3,Image4,SavedDate) VALUES(\"{0}\",\"{1}\",\"{2}\",@image1,@image2,@image3,@image4,datetime(CURRENT_TIMESTAMP,'localtime'))", name, size, flavour, bytes1, bytes2, bytes3, bytes4);
                 SqliteParameter parameter = new SqliteParameter("@image1", System.Data.DbType.Binary);
                 parameter.Value = bytes1;
                 dbCmd.Parameters.Add(parameter);
                 parameter = new SqliteParameter("@image2", System.Data.DbType.Binary);
                 parameter.Value = bytes2;
                 dbCmd.Parameters.Add(parameter);
-                
+
                 parameter = new SqliteParameter("@image3", System.Data.DbType.Binary);
                 parameter.Value = bytes3;
                 dbCmd.Parameters.Add(parameter);
-               
+
                 parameter = new SqliteParameter("@image4", System.Data.DbType.Binary);
                 parameter.Value = bytes4;
                 dbCmd.Parameters.Add(parameter);
-                
+
                 dbCmd.CommandText = sqlQuery;
                 dbCmd.ExecuteScalar();
                 dbConnection.Close();
@@ -99,9 +98,9 @@ public class CakeData : MonoBehaviour
             warningPanel.SetActive(true);
             hideCakeNamePanel();
             empty = false;
-            SaveCake(cName, cSize, cFlavour, bytes1,bytes2,bytes3,bytes4);
+            SaveCake(cName, cSize, cFlavour, bytes1, bytes2, bytes3, bytes4);
             order.GetComponent<Button>().interactable = true;
-            
+
         }
     }
     public void warningOk()
@@ -129,10 +128,6 @@ public class CakeData : MonoBehaviour
     }
     public void takeScreenshot()
     {
-        for (int i = 0; i < cake.transform.childCount; i++)
-        {
-            theCake[i].transform.localRotation = Quaternion.Euler(45, 180, 0);
-        }
         StartCoroutine(screenshot());
     }
     IEnumerator screenshot()

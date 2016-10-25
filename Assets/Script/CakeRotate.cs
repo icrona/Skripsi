@@ -91,4 +91,11 @@ public class CakeRotate : MonoBehaviour
         rotateOnlyOnY = false;
         rotateOnlyOnZ = false;
     }
+    public void resetRotation()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            theCake[i].transform.localRotation = Quaternion.Euler(45, 180, 0);
+        }
+    }
 }
