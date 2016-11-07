@@ -31,7 +31,7 @@ public class Dragger : MonoBehaviour {
         height = transform.parent.parent.GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.GetChild(index).GetChild(0).localScale.y;
         if (tier == 2)
         {
-            height2=transform.parent.parent.parent.GetChild(1).GetChild(0).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.GetChild(1).GetChild(0).GetChild(0).localScale.y;
+            height2=transform.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).localScale.y;
         }
         switch (tier)
         {
