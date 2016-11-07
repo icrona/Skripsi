@@ -15,6 +15,7 @@ public class LoadDatabase : MonoBehaviour {
         connectionString = "URI=file:" + filepath;
         if (!File.Exists(filepath))
         {
+            PlayerPrefs.SetInt("UserData", 0);
             using (IDbConnection dbConnection = new SqliteConnection(connectionString))
             {
                 dbConnection.Open();
@@ -27,6 +28,7 @@ public class LoadDatabase : MonoBehaviour {
                 }
             }
         }
+        Debug.Log(PlayerPrefs.GetInt("UserData"));
     }
 	
 }

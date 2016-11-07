@@ -53,7 +53,7 @@ public class CakeRotate : MonoBehaviour
                             }
                             if (rotateOnlyOnZ && !rotateOnlyOnY)
                             {
-                                theCake[i].transform.Rotate(rotateX, 0, 0, Space.World);
+                                theCake[i].transform.Rotate(0, 0, rotateX, Space.World);
                             }
 
                             if (rotateOnlyOnY && !rotateOnlyOnZ)
@@ -83,7 +83,7 @@ public class CakeRotate : MonoBehaviour
         {
             theCake[i].transform.localRotation = Quaternion.Euler(90, 180, 0);
             rotateOnlyOnZ = true;
-            rotateOnlyOnZ = false;
+            rotateOnlyOnY = false;
         }
     }
     public void rotateOnAgain()

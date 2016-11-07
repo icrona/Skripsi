@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour {
     public float percent;
     public Image progressBar;
 
+    public InputField cakeName;
+
 
     private void Start () {
         menuList = new GameObject[transform.childCount];
@@ -26,14 +28,11 @@ public class MenuManager : MonoBehaviour {
         index = 0;
         activeCurrMenu();
         menuName = new string[transform.childCount];
-        menuName[0] = "Choose Shape";
-        menuName[1] = "Choose Color";
-        menuName[2] = "Frosting";
-        menuName[3] = "Decoration";
-        menuName[4] = "Text";
-        menuName[5] = "Preview";
-        menuName[6] = "Customer Data";
-        menuName[7] = "Confirmation";
+        menuName[0] = "Cake Basic";
+        menuName[1] = "Frosting & Color";
+        menuName[2] = "Decoration";
+        menuName[3] = "Text";
+        menuName[4] = "Preview";
         
     }
     public void backBtn()
@@ -79,21 +78,13 @@ public class MenuManager : MonoBehaviour {
             progressPercent -= 60 * Time.deltaTime;
             progressBar.fillAmount = progressPercent / 100f;
         }
-        if (index>=5)
+        if (index==4)
         {
             buttonNext.SetActive(false);
         }
         else
         {
             buttonNext.SetActive(true);
-        }
-        if (index >=6)
-        {
-            hideCake();
-        }
-        else
-        {
-            showCake();
         }
     }
     public void updateCompletionText(int index)
@@ -111,17 +102,10 @@ public class MenuManager : MonoBehaviour {
     }
     public void lastMenu()
     {
-        updateCompletionText(index+1);
-    }
-    public void hideCake()
-    {
-        cakeList.SetActive(false);
-        sidePanel.SetActive(false);
-    }
-    public void showCake()
-    {
-        cakeList.SetActive(true);
-        sidePanel.SetActive(true);
+        if (cakeName.text!="")
+        {
+            updateCompletionText(index + 1);
+        } 
     }
     public void goToHome()
     {

@@ -126,10 +126,7 @@ public class GalleryManager : MonoBehaviour {
         galleryCanvas.SetActive(true);
         gridCanvas.SetActive(false);
     }
-    public void test()
-    {
-        Debug.Log("success");
-    }
+
     void showCakeData()
     {
         if (galleryNum == 0)
@@ -237,5 +234,10 @@ public class GalleryManager : MonoBehaviour {
             cakeIndex = 0;
         }
         cakeImage[cakeIndex].SetActive(true);
+    }
+
+    public void getCakeId()
+    {
+        PlayerPrefs.SetString("selectedCakeID", selectedCakeID);
     }
 }

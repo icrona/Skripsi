@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\CakeColor.cs" />
     <Compile Include="Assets\Script\CakeData.cs" />
     <Compile Include="Assets\Script\CakeGallery.cs" />
     <Compile Include="Assets\Script\CakeRotate.cs" />
@@ -97,14 +98,23 @@
     <Compile Include="Assets\Script\CakeZoom.cs" />
     <Compile Include="Assets\Script\DataValidation.cs" />
     <Compile Include="Assets\Script\ExitApps.cs" />
+    <Compile Include="Assets\Script\GalleryConfirmation.cs" />
     <Compile Include="Assets\Script\GalleryManager.cs" />
     <Compile Include="Assets\Script\HelpManager.cs" />
     <Compile Include="Assets\Script\HomePanelManager.cs" />
     <Compile Include="Assets\Script\LoadDatabase.cs" />
     <Compile Include="Assets\Script\MainMenu.cs" />
     <Compile Include="Assets\Script\MenuManager.cs" />
+    <Compile Include="Assets\Script\OrderManager.cs" />
+    <Compile Include="Assets\Script\Positioning.cs" />
+    <Compile Include="Assets\Script\Positioning2.cs" />
+    <Compile Include="Assets\Script\SelectColor.cs" />
+    <Compile Include="Assets\Script\SelectFlavour.cs" />
+    <Compile Include="Assets\Script\SelectFrosting.cs" />
+    <Compile Include="Assets\Script\SelectSize.cs" />
     <Compile Include="Assets\Script\StartMenu.cs" />
     <Compile Include="Assets\Script\ThankYou.cs" />
+    <Compile Include="Assets\Script\TierManagement.cs" />
     <Compile Include="Assets\Script\Touchable.cs" />
     <Compile Include="Assets\Script\UpAndDown.cs" />
     <Compile Include="Assets\Script\ViewToggle.cs" />

@@ -39,6 +39,7 @@ public class DataValidation : MonoBehaviour {
     private bool isValidEmail;
     private bool isValidDate;
     private bool isValidAddress;
+
     void Start()
     {
         greenHexColor = "#9AF597FF";
@@ -47,11 +48,11 @@ public class DataValidation : MonoBehaviour {
         ColorUtility.TryParseHtmlString(redHexColor, out red);
         isTriggered = false;
         SelectedDate.now = SelectedDate.now.AddDays(3);
-        isValidDate = false;
-        isValidPhone = false;
-        isValidName = false;
-        isValidAddress = false;
-        isValidEmail = false;
+        isValidDate = true;
+        isValidPhone = true;
+        isValidName = true;
+        isValidAddress = true;
+        isValidEmail = true;
     }
     void PickDate()
     {
@@ -91,6 +92,7 @@ public class DataValidation : MonoBehaviour {
         {
             custName.image.color = green;
             isValidName = true;
+            
         }
     }
     public void checkPhone()
@@ -105,6 +107,7 @@ public class DataValidation : MonoBehaviour {
         {
             custPhone.image.color = green;
             isValidPhone = true;
+            
         }
     }
     public void checkEmail()
@@ -125,6 +128,7 @@ public class DataValidation : MonoBehaviour {
         {
             custEmail.image.color = green;
             isValidEmail = true;
+            
         }
     }
     public void checkDelivDate()
@@ -138,6 +142,7 @@ public class DataValidation : MonoBehaviour {
         {
             custDelivDate.image.color = green;
             isValidDate = true;
+            
         }
     }
 
@@ -153,11 +158,13 @@ public class DataValidation : MonoBehaviour {
         {
             custAddress.image.color = green;
             isValidAddress = true;
+            
         }
     }
     public void checkNotes()
     {
         custNotes.image.color = green;
+        
     }
 }
 
