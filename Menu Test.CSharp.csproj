@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\AddDecoration.cs" />
     <Compile Include="Assets\Script\CakeColor.cs" />
     <Compile Include="Assets\Script\CakeData.cs" />
     <Compile Include="Assets\Script\CakeGallery.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Assets\Script\CakeSelection.cs" />
     <Compile Include="Assets\Script\CakeZoom.cs" />
     <Compile Include="Assets\Script\DataValidation.cs" />
+    <Compile Include="Assets\Script\Dragger.cs" />
     <Compile Include="Assets\Script\ExitApps.cs" />
     <Compile Include="Assets\Script\GalleryConfirmation.cs" />
     <Compile Include="Assets\Script\GalleryManager.cs" />

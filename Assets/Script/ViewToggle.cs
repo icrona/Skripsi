@@ -8,6 +8,7 @@ public class ViewToggle : MonoBehaviour {
     private float speed =1000;
     private Vector3 offPos;
     private Vector3 onPos;
+    public GameObject rotate;
     public void Start()
     {
         onPos = new Vector3(180.5f,50,0);
@@ -35,6 +36,7 @@ public class ViewToggle : MonoBehaviour {
         {
             inView = -1;
         }
+        rotate.GetComponent<CakeRotate>().enabled = true;
     }
 
 }

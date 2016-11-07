@@ -14,6 +14,7 @@ public class TierManagement : MonoBehaviour {
 
     public GameObject CakeBasic;
     public GameObject FrostingColor;
+    public GameObject Decoration;
     private int index;
     private int tiers;
 
@@ -22,6 +23,7 @@ public class TierManagement : MonoBehaviour {
         downTier.interactable = true;
         CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
+        Decoration.transform.GetChild(index).gameObject.SetActive(false);
         index++;
         if (index == tiers)
         {
@@ -29,6 +31,7 @@ public class TierManagement : MonoBehaviour {
         }
         CakeBasic.transform.GetChild(index).gameObject.SetActive(true);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(true);
+        Decoration.transform.GetChild(index).gameObject.SetActive(true);
         updateText();
     }
     public void down()
@@ -36,6 +39,7 @@ public class TierManagement : MonoBehaviour {
         upTier.interactable = true;
         CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
+        Decoration.transform.GetChild(index).gameObject.SetActive(false);
         index--;
         if (index == 0)
         {
@@ -43,6 +47,7 @@ public class TierManagement : MonoBehaviour {
         }
         CakeBasic.transform.GetChild(index).gameObject.SetActive(true);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(true);
+        Decoration.transform.GetChild(index).gameObject.SetActive(true);
         updateText();
     }
     public void updateText()
