@@ -190,8 +190,6 @@ public class SelectColor : MonoBehaviour {
             colorPanel.SetActive(false);
         }
 
-
-
     }
 
 }
