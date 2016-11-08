@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\AddDecoration.cs" />
+    <Compile Include="Assets\Script\AddText.cs" />
     <Compile Include="Assets\Script\CakeColor.cs" />
     <Compile Include="Assets\Script\CakeData.cs" />
     <Compile Include="Assets\Script\CakeGallery.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Assets\Script\CakeZoom.cs" />
     <Compile Include="Assets\Script\DataValidation.cs" />
     <Compile Include="Assets\Script\Dragger.cs" />
+    <Compile Include="Assets\Script\DraggerForText.cs" />
     <Compile Include="Assets\Script\ExitApps.cs" />
     <Compile Include="Assets\Script\GalleryConfirmation.cs" />
     <Compile Include="Assets\Script\GalleryManager.cs" />
@@ -115,9 +117,13 @@
     <Compile Include="Assets\Script\SelectFrosting.cs" />
     <Compile Include="Assets\Script\SelectSize.cs" />
     <Compile Include="Assets\Script\StartMenu.cs" />
+    <Compile Include="Assets\Script\TextEdit.cs" />
+    <Compile Include="Assets\Script\TextSize.cs" />
     <Compile Include="Assets\Script\ThankYou.cs" />
     <Compile Include="Assets\Script\TierManagement.cs" />
     <Compile Include="Assets\Script\Touchable.cs" />
+    <Compile Include="Assets\Script\TurnRotate.cs" />
+    <Compile Include="Assets\Script\TurnZoom.cs" />
     <Compile Include="Assets\Script\UpAndDown.cs" />
     <Compile Include="Assets\Script\ViewToggle.cs" />
   </ItemGroup>

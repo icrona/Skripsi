@@ -15,40 +15,47 @@ public class TierManagement : MonoBehaviour {
     public GameObject CakeBasic;
     public GameObject FrostingColor;
     public GameObject Decoration;
+    public GameObject Text;
     private int index;
     private int tiers;
 
     public void up()
     {
         downTier.interactable = true;
-        CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
-        FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
-        Decoration.transform.GetChild(index).gameObject.SetActive(false);
+        deactivate();
         index++;
         if (index == tiers)
         {
             upTier.interactable = false;
         }
-        CakeBasic.transform.GetChild(index).gameObject.SetActive(true);
-        FrostingColor.transform.GetChild(index).gameObject.SetActive(true);
-        Decoration.transform.GetChild(index).gameObject.SetActive(true);
+        activate();
         updateText();
     }
     public void down()
     {
         upTier.interactable = true;
-        CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
-        FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
-        Decoration.transform.GetChild(index).gameObject.SetActive(false);
+        deactivate();
         index--;
         if (index == 0)
         {
             downTier.interactable = false;
         }
+        activate();
+        updateText();
+    }
+    private void activate()
+    {
         CakeBasic.transform.GetChild(index).gameObject.SetActive(true);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(true);
         Decoration.transform.GetChild(index).gameObject.SetActive(true);
-        updateText();
+        Text.transform.GetChild(index).gameObject.SetActive(true);
+    }
+    private void deactivate()
+    {
+        CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
+        FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
+        Decoration.transform.GetChild(index).gameObject.SetActive(false);
+        Text.transform.GetChild(index).gameObject.SetActive(false);
     }
     public void updateText()
     {

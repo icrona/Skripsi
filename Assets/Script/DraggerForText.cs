@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Dragger : MonoBehaviour {
+public class DraggerForText : MonoBehaviour
+{
     Vector3 mousePosition;
     Vector3 objectPosition;
-    public float  height,height2;
+    public float height, height2;
     public int tier;
     public int index;
     public float distance;
@@ -25,18 +26,19 @@ public class Dragger : MonoBehaviour {
     void OnMouseDown()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
+        transform.parent.parent.parent.parent.parent.GetComponent<CakeZoom>().enabled = false;
         transform.parent.parent.parent.parent.rotation = Quaternion.Euler(90, 180, 0);
     }
-    
     void OnMouseDrag()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
+        transform.parent.parent.parent.parent.parent.GetComponent<CakeZoom>().enabled = false;
         transform.localScale = new Vector3(1, 1, 1);
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        transform.localRotation = Quaternion.Euler(90, 180, 0);
         height = transform.parent.parent.parent.GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.GetChild(index).GetChild(0).localScale.y;
         if (tier == 2)
         {
-            height2=transform.parent.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).localScale.y;
+            height2 = transform.parent.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.parent.GetChild(1).GetChild(index).GetChild(0).localScale.y;
         }
         switch (tier)
         {
@@ -48,13 +50,14 @@ public class Dragger : MonoBehaviour {
                 break;
 
             case 2:
-                distance = 180f - height-height2;
+                distance = 180f - height - height2;
                 break;
         }
-        
-        mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y,distance);
+
+        mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         objectPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objectPosition;
-    }  
+    }
 
 }
+

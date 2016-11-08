@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AddDecoration : MonoBehaviour {
+public class AddText : MonoBehaviour
+{
 
     // Use this for initialization
-    public GameObject decorationPrefab;
-    private GameObject decoration;
+    public GameObject textPrefab;
+    private GameObject text;
     public int index;
 
     public void add()
@@ -18,11 +19,10 @@ public class AddDecoration : MonoBehaviour {
                 index = i;
             }
         }
-        decoration = Instantiate(decorationPrefab, new Vector3(0f, -20f, 180f), Quaternion.identity) as GameObject;
+        text = Instantiate(textPrefab, new Vector3(0f, -10f, 180f), Quaternion.identity) as GameObject;
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
-        decoration.transform.parent = transform.GetChild(index).GetChild(1);
-        decoration.transform.localRotation = Quaternion.Euler(90, 180, 0);
-        decoration.transform.localScale = new Vector3(3,3,3);
+        text.transform.parent = transform.GetChild(index).GetChild(2);
+        text.transform.localRotation = Quaternion.Euler(90, 180, 0);
     }
 
 }

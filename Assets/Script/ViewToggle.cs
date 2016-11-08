@@ -25,6 +25,7 @@ public class ViewToggle : MonoBehaviour {
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, offPos, step);
         }
+
     }
     public void toggleView()
     {
@@ -36,7 +37,6 @@ public class ViewToggle : MonoBehaviour {
         {
             inView = -1;
         }
-        rotate.GetComponent<CakeRotate>().enabled = true;
     }
-
+   
 }
