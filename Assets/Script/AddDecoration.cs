@@ -17,6 +17,7 @@ public class AddDecoration : MonoBehaviour {
             {
                 index = i;
             }
+            
         }
         decoration = Instantiate(decorationPrefab, new Vector3(0f, -20f, 180f), Quaternion.identity) as GameObject;
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);

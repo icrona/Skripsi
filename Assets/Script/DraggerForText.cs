@@ -28,12 +28,22 @@ public class DraggerForText : MonoBehaviour
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
         transform.parent.parent.parent.parent.parent.GetComponent<CakeZoom>().enabled = false;
         transform.parent.parent.parent.parent.rotation = Quaternion.Euler(90, 180, 0);
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j=0;j<transform.parent.parent.parent.childCount;j++)
+            {
+                for (int k = 0; k < transform.parent.parent.parent.parent.GetChild(i).GetChild(j).GetChild(2).childCount; k++)
+                {
+                    transform.parent.parent.parent.parent.GetChild(i).GetChild(j).GetChild(2).GetChild(k).GetComponent<TextSize>().enabled = false;
+                }
+            }
+        }
+        transform.GetComponent<TextSize>().enabled = true;
     }
     void OnMouseDrag()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
         transform.parent.parent.parent.parent.parent.GetComponent<CakeZoom>().enabled = false;
-        transform.localScale = new Vector3(1, 1, 1);
         transform.localRotation = Quaternion.Euler(90, 180, 0);
         height = transform.parent.parent.parent.GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.GetChild(index).GetChild(0).localScale.y;
         if (tier == 2)
@@ -54,7 +64,7 @@ public class DraggerForText : MonoBehaviour
                 break;
         }
 
-        mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+        mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance-1.5f);
         objectPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objectPosition;
     }
