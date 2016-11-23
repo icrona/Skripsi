@@ -19,6 +19,7 @@ public class TierManagement : MonoBehaviour {
     private int index;
     private int tiers;
 
+
     public void up()
     {
         downTier.interactable = true;
@@ -29,7 +30,7 @@ public class TierManagement : MonoBehaviour {
             upTier.interactable = false;
         }
         activate();
-        updateText();
+        updateText();        
     }
     public void down()
     {
@@ -42,6 +43,7 @@ public class TierManagement : MonoBehaviour {
         }
         activate();
         updateText();
+
     }
     private void activate()
     {
@@ -77,6 +79,7 @@ public class TierManagement : MonoBehaviour {
             }
             upTier.interactable = false;
         }
+        PlayerPrefs.SetInt("NumberOfTiers", tier+1);
     }
     void Update()
     {
@@ -84,11 +87,17 @@ public class TierManagement : MonoBehaviour {
         {
             tier2.SetActive(false);
             tier3.SetActive(false);
+            PlayerPrefs.SetInt("IsThere2Tiers", 0);
+            PlayerPrefs.SetInt("IsThere3Tiers", 0);
+            PlayerPrefs.SetInt("SizeTier2", -1);
+            PlayerPrefs.SetInt("SizeTier3", -1);
         }
         if (tiers == 1)
         {
             tier2.SetActive(true);
             tier3.SetActive(false);
+            PlayerPrefs.SetInt("IsThere3Tiers", 0);
+            PlayerPrefs.SetInt("SizeTier3", -1);
         }
         if (tiers == 2)
         {

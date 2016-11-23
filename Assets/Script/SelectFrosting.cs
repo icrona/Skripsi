@@ -8,7 +8,6 @@ public class SelectFrosting : MonoBehaviour {
     public GameObject cakeBasic;
     public Toggle[] selectFrosting;
     public GameObject colorPanel;
-    private int tier;
     private int selectedFrosting;
 	// Use this for initialization
 	void Start () {
@@ -21,7 +20,6 @@ public class SelectFrosting : MonoBehaviour {
             AddListener(t, i);
 
         }
-        tier = transform.GetSiblingIndex() + 1;
     }
     void AddListener(Toggle t,int i)
     {
@@ -32,19 +30,19 @@ public class SelectFrosting : MonoBehaviour {
         if (i == 0)
         {
             frostingWhite();
-            PlayerPrefs.SetInt("FrostingTier" + tier, 0);
+            PlayerPrefs.SetInt("Frosting", 0);
         }
 
         else if (i == 1)
         {
             frostingGanache();
-            PlayerPrefs.SetInt("FrostingTier" + tier, 1);
+            PlayerPrefs.SetInt("Frosting", 1);
         }
 
         else if (i==2)
         {
             frostingWhite();
-            PlayerPrefs.SetInt("FrostingTier" + tier, 2);
+            PlayerPrefs.SetInt("Frosting", 2);
         }
     }
 	

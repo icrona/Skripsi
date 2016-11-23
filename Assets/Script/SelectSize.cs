@@ -16,6 +16,7 @@ public class SelectSize : MonoBehaviour {
     public Dropdown size;
     private int defaultSize;
     private float scale;
+
     void Start () {
         cakeShape = new GameObject[transform.childCount];      
         initialScaleX = new float[transform.childCount];
@@ -26,6 +27,9 @@ public class SelectSize : MonoBehaviour {
         value[0] = 6;
         value[1] = 8;
         value[2] = 10;
+
+        PlayerPrefs.SetInt("IsThere2Tiers", 0);
+        PlayerPrefs.SetInt("IsThere3Tiers", 0);
 
         for (int i=0;i<transform.childCount;i++)
         {
@@ -46,7 +50,19 @@ public class SelectSize : MonoBehaviour {
         size.value = defaultSize;
         size.RefreshShownValue();
         tier = transform.GetSiblingIndex() + 1;
-        selectedSize = defaultSize;
+        
+        if (tier == 2)
+        {
+            adjustSizeTier2();
+        }
+        else if (tier == 3)
+        {
+            adjustSizeTier3();
+        }
+        else
+        {
+            selectedSize = defaultSize;
+        }
     }
     	
     public void selectSize(int size)
@@ -61,5 +77,37 @@ public class SelectSize : MonoBehaviour {
     void Update()
     {
         PlayerPrefs.SetInt("SizeTier" + tier, selectedSize);
+
+        if (tier == 3 && PlayerPrefs.GetInt("IsThere3Tiers") < 1)
+        {
+            if (PlayerPrefs.GetInt("SizeTier3")>(PlayerPrefs.GetInt("SizeTier1")))
+            {
+                PlayerPrefs.SetInt("IsThere3Tiers", 1);
+                adjustSizeTier2();
+            }
+            else
+            {
+                PlayerPrefs.SetInt("IsThere3Tiers", 1);
+                adjustSizeTier3();
+            }
+        }
+
+        else if (tier == 2 && PlayerPrefs.GetInt("IsThere2Tiers")<1)
+        {
+            PlayerPrefs.SetInt("IsThere2Tiers", 1);
+            adjustSizeTier2();          
+        }     
+    }
+    void adjustSizeTier2()
+    {
+        selectSize(PlayerPrefs.GetInt("SizeTier1"));
+        size.value = selectedSize;
+    }
+
+    void adjustSizeTier3()
+    {
+        adjustSizeTier2();
+        selectSize(PlayerPrefs.GetInt("SizeTier2"));
+        size.value = selectedSize;
     }
 }

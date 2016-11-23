@@ -106,10 +106,11 @@
     <Compile Include="Assets\Script\GalleryManager.cs" />
     <Compile Include="Assets\Script\HelpManager.cs" />
     <Compile Include="Assets\Script\HomePanelManager.cs" />
+    <Compile Include="Assets\Script\KnifeAnimate.cs" />
     <Compile Include="Assets\Script\LoadDatabase.cs" />
-    <Compile Include="Assets\Script\MainMenu.cs" />
     <Compile Include="Assets\Script\MenuManager.cs" />
     <Compile Include="Assets\Script\OrderManager.cs" />
+    <Compile Include="Assets\Script\PlayerPrefsReset.cs" />
     <Compile Include="Assets\Script\Positioning.cs" />
     <Compile Include="Assets\Script\Positioning2.cs" />
     <Compile Include="Assets\Script\SelectColor.cs" />
@@ -125,6 +126,9 @@
     <Compile Include="Assets\Script\TurnRotate.cs" />
     <Compile Include="Assets\Script\TurnZoom.cs" />
     <Compile Include="Assets\Script\UpAndDown.cs" />
+    <Compile Include="Assets\Script\ValidateSizeTier1.cs" />
+    <Compile Include="Assets\Script\ValidateSizeTier2.cs" />
+    <Compile Include="Assets\Script\ValidateSizeTier3.cs" />
     <Compile Include="Assets\Script\ViewToggle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
