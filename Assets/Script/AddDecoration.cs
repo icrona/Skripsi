@@ -10,15 +10,18 @@ public class AddDecoration : MonoBehaviour {
     public int index;
     void Start()
     {
+        /*
         list = new GameObject[transform.GetChild(0).GetChild(0).GetChild(0).childCount];
         for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).childCount; i++)
         {
             list[i] = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject;
         }
+        */
     }
     public void add()
     {
         transform.parent.parent.GetComponent<CakeRotate>().enabled = false;
+        //dont forget add available shape
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeSelf)

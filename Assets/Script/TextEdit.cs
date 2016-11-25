@@ -20,7 +20,7 @@ public class TextEdit : MonoBehaviour {
     private bool touch;
     // Use this for initialization
     void Start () {
-        TextPanel = transform.parent.parent.parent.parent.parent.parent.GetChild(0).GetChild(3).gameObject;
+        TextPanel = transform.parent.parent.parent.parent.parent.parent.GetChild(0).GetChild(4).gameObject;
         tier = transform.parent.parent.parent.GetSiblingIndex();
         textIndex = transform.GetSiblingIndex();
         textField = TextPanel.transform.GetChild(tier).GetChild(0).GetChild(2).gameObject;
@@ -32,7 +32,7 @@ public class TextEdit : MonoBehaviour {
         PlayerPrefs.SetInt("TextTier", -1);
 
         color = new Vector4[17];
-        color[0] = new Vector4(0 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+        color[0] = new Vector4(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
         color[1] = new Vector4(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
         color[2] = new Vector4(0 / 255f, 255 / 255f, 0 / 255f, 255 / 255f);
         color[3] = new Vector4(255 / 255f, 255 / 255f, 0 / 255f, 255 / 255f);
@@ -169,7 +169,7 @@ public class TextEdit : MonoBehaviour {
                 pickColor(colorButton[i], i);
                 if (i == 0)
                 {
-                    transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.black;
+                    transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.white;
                 }
             }
         }
@@ -186,9 +186,9 @@ public class TextEdit : MonoBehaviour {
             transform.parent.GetChild(textIndex).GetComponent<TextMesh>().text = textField.GetComponent<InputField>().text;
 
                 hsl = RgbaToHsl(color[index]);
-            if (color[index] == (Vector4)Color.black)
+            if (color[index] == (Vector4)Color.white)
             {
-                transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.black;
+                transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.white;
             }
             else
             {

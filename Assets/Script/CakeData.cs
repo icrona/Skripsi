@@ -13,12 +13,16 @@ public class CakeData : MonoBehaviour
     private byte[] bytes2;
     private byte[] bytes3;
     private byte[] bytes4;
-    public Dropdown selectSize;
-    public Dropdown selectFlavour;
     public InputField cakeName;
+
     private string cName;
-    private string cSize;
-    private string cFlavour;
+    private int numTier;
+    private string[] cSize;
+    private string cFrosting;
+    private string[] cFlavour;
+    private string cPrice;
+
+    private string[] frostingName;
 
     public GameObject cakeNamePanel;
     int show;
@@ -32,8 +36,16 @@ public class CakeData : MonoBehaviour
     private bool empty;
     public Button order;
 
+    private int selectedCakeID;
+
     void Start()
     {
+        cSize = new string[3];
+        cFlavour = new string[3];
+        frostingName = new string[3];
+        frostingName[0] = "Butter Cream";
+        frostingName[1] = "Ganache";
+        frostingName[2] = "Icing";
         hidePos = new Vector3(587.5f, 0, 0);
         showPos = new Vector3(187.5f, 0, 0);
         theCake = new GameObject[cake.transform.childCount];
@@ -45,15 +57,14 @@ public class CakeData : MonoBehaviour
         filepath = Application.persistentDataPath + "/CakeDB.sqlite";
         connectionString = "URI=file:" + filepath;
     }
-    private void SaveCake(string name, string size, string flavour, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
+    private void SaveCake(string name, int numTier, string size1, string size2, string size3, string frosting,string flavour1, string flavour2, string flavour3, string price, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
     {
         using (IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             dbConnection.Open();
             using (IDbCommand dbCmd = dbConnection.CreateCommand())
             {
-
-                string sqlQuery = String.Format("INSERT INTO Cake(Name,Size,Flavour,Image1,Image2,Image3,Image4,SavedDate) VALUES(\"{0}\",\"{1}\",\"{2}\",@image1,@image2,@image3,@image4,datetime(CURRENT_TIMESTAMP,'localtime'))", name, size, flavour, bytes1, bytes2, bytes3, bytes4);
+                string sqlQuery = String.Format("INSERT INTO Cake(Name,NumOfTier,Size1,Size2,Size3,Frosting,Flavour1,Flavour2,Flavour3,Price,Image1,Image2,Image3,Image4,SavedDate) VALUES(\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",@image1,@image2,@image3,@image4,datetime(CURRENT_TIMESTAMP,'localtime'))", name, numTier,size1, size2, size3, frosting, flavour1, flavour2, flavour3,price, bytes1, bytes2, bytes3, bytes4);
                 SqliteParameter parameter = new SqliteParameter("@image1", System.Data.DbType.Binary);
                 parameter.Value = bytes1;
                 dbCmd.Parameters.Add(parameter);
@@ -71,9 +82,20 @@ public class CakeData : MonoBehaviour
 
                 dbCmd.CommandText = sqlQuery;
                 dbCmd.ExecuteScalar();
+
+                string getLastId= "SELECT last_insert_rowid()";
+                dbCmd.CommandText = getLastId;
+                using (IDataReader reader = dbCmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        selectedCakeID = reader.GetInt32(0);
+                    }
+                }
                 dbConnection.Close();
             }
         }
+        PlayerPrefs.SetInt("selectedCakeID", selectedCakeID);
     }
 
     public void showCakeNamePanel()
@@ -94,11 +116,12 @@ public class CakeData : MonoBehaviour
         }
         else
         {
+            collectData();
             warningText.text = "Your cake has been saved, you can order now or later from gallery menu";
             warningPanel.SetActive(true);
             hideCakeNamePanel();
             empty = false;
-            SaveCake(cName, cSize, cFlavour, bytes1, bytes2, bytes3, bytes4);
+            SaveCake(cName,numTier,cSize[0], cSize[1], cSize[2],cFrosting, cFlavour[0],cFlavour[1],cFlavour[2],cPrice, bytes1, bytes2, bytes3, bytes4);
             order.GetComponent<Button>().interactable = true;
 
         }
@@ -111,11 +134,25 @@ public class CakeData : MonoBehaviour
             cakeNamePanel.SetActive(true);
         }
     }
-    void Update()
+    void collectData()
     {
         cName = cakeName.text;
-        cFlavour = selectFlavour.captionText.text;
-        cSize = selectSize.captionText.text;
+        numTier = PlayerPrefs.GetInt("NumberOfTiers");
+        for(int i = 0; i < 3; i++)
+        {
+            cSize[i] = "";
+            cFlavour[i] = "";
+        }
+        for(int i = 0,j=1; i < numTier; i++,j++)
+        {
+            cSize[i] = PlayerPrefs.GetInt("Size"+PlayerPrefs.GetInt("SizeTier" + j)) + " cm";
+            cFlavour[i] = PlayerPrefs.GetString("Flavour" + PlayerPrefs.GetInt("FlavourTier" + j));
+        }
+        cFrosting = frostingName[PlayerPrefs.GetInt("Frosting")];
+        cPrice = "Rp 250.000";
+    }
+    void Update()
+    {        
         float step = speed * Time.deltaTime;
         if (show == 1)
         {

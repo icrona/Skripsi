@@ -96,7 +96,6 @@
     <Compile Include="Assets\Script\CakeData.cs" />
     <Compile Include="Assets\Script\CakeGallery.cs" />
     <Compile Include="Assets\Script\CakeRotate.cs" />
-    <Compile Include="Assets\Script\CakeSelection.cs" />
     <Compile Include="Assets\Script\CakeZoom.cs" />
     <Compile Include="Assets\Script\DataValidation.cs" />
     <Compile Include="Assets\Script\Dragger.cs" />
@@ -116,6 +115,7 @@
     <Compile Include="Assets\Script\SelectColor.cs" />
     <Compile Include="Assets\Script\SelectFlavour.cs" />
     <Compile Include="Assets\Script\SelectFrosting.cs" />
+    <Compile Include="Assets\Script\SelectShape.cs" />
     <Compile Include="Assets\Script\SelectSize.cs" />
     <Compile Include="Assets\Script\StartMenu.cs" />
     <Compile Include="Assets\Script\TextEdit.cs" />

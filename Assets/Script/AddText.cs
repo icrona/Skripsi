@@ -13,6 +13,7 @@ public class AddText : MonoBehaviour
     public void add()
     {
         transform.parent.parent.GetComponent<CakeRotate>().enabled = false;
+        //dont forget add available shape
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeSelf)

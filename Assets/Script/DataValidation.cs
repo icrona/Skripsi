@@ -48,11 +48,11 @@ public class DataValidation : MonoBehaviour {
         ColorUtility.TryParseHtmlString(redHexColor, out red);
         isTriggered = false;
         SelectedDate.now = SelectedDate.now.AddDays(3);
-        isValidDate = true;
-        isValidPhone = true;
-        isValidName = true;
-        isValidAddress = true;
-        isValidEmail = true;
+        isValidDate = false;
+        isValidPhone = false;
+        isValidName = false;
+        isValidAddress = false;
+        isValidEmail = false;
     }
     void PickDate()
     {
@@ -157,8 +157,7 @@ public class DataValidation : MonoBehaviour {
         else
         {
             custAddress.image.color = green;
-            isValidAddress = true;
-            
+            isValidAddress = true;           
         }
     }
     public void checkNotes()

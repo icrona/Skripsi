@@ -8,10 +8,11 @@ public class SelectSize : MonoBehaviour {
     private int tier;
     private int selectedSize;
     private GameObject []cakeShape;
+    private GameObject[] availableShape;
     private float[] initialScaleX;
     private float[] initialScaleY;
     private float[] initialScaleZ;
-
+    private int numOfShape;
     private float []value;
     public Dropdown size;
     private int defaultSize;
@@ -23,28 +24,68 @@ public class SelectSize : MonoBehaviour {
         initialScaleY = new float[transform.childCount];
         initialScaleZ = new float[transform.childCount];
 
-        value = new float[3];
-        value[0] = 6;
-        value[1] = 8;
-        value[2] = 10;
+        value = new float[PlayerPrefs.GetInt("NumOfSize")];
+        for (int i=0; i<value.Length;i++)
+        {
+            value[i] = PlayerPrefs.GetInt("Size" + i);
+        }
 
         PlayerPrefs.SetInt("IsThere2Tiers", 0);
         PlayerPrefs.SetInt("IsThere3Tiers", 0);
-
+        //dont forget add available shape
         for (int i=0;i<transform.childCount;i++)
         {
             cakeShape[i] = transform.GetChild(i).gameObject;
         }
+
+        numOfShape = 0;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (PlayerPrefs.GetInt("Shape" + i) == 1)
+            {
+                numOfShape++;
+            }
+        }
+
+        cakeShape = new GameObject[transform.childCount];
+
         for (int i = 0; i < transform.childCount; i++)
         {
-            initialScaleX[i] = cakeShape[i].transform.GetChild(0).localScale.x;
-            initialScaleY[i] = cakeShape[i].transform.GetChild(0).localScale.y;
-            initialScaleZ[i] = cakeShape[i].transform.GetChild(0).localScale.z;
+            cakeShape[i] = transform.GetChild(i).gameObject;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (PlayerPrefs.GetInt("Shape" + i) == 0)
+            {
+                Destroy(cakeShape[i]);
+            }
+        }
+
+        availableShape = new GameObject[numOfShape];
+        for (int i = 0, j = 0; i < transform.childCount; i++, j++)
+        {
+            if (PlayerPrefs.GetInt("Shape" + i) == 1)
+            {
+                availableShape[j] = cakeShape[i];
+            }
+            else
+            {
+                j--;
+            }
+        }
+
+        for (int i = 0; i < numOfShape; i++)
+        {
+            initialScaleX[i] = availableShape[i].transform.GetChild(0).localScale.x;
+            initialScaleY[i] = availableShape[i].transform.GetChild(0).localScale.y;
+            initialScaleZ[i] = availableShape[i].transform.GetChild(0).localScale.z;
         }
 
         for (int i = 0; i < value.Length; i++)
         {
-            size.options.Add(new Dropdown.OptionData() { text = value[i] + " inch" });
+            size.options.Add(new Dropdown.OptionData() { text = value[i] + " cm" });
         }
         defaultSize = value.Length / 2;
         size.value = defaultSize;
@@ -68,10 +109,10 @@ public class SelectSize : MonoBehaviour {
     public void selectSize(int size)
     {
         selectedSize = size;
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < numOfShape; i++)
         {
             scale = (value[size] / value[defaultSize]);
-            cakeShape[i].transform.GetChild(0).localScale = new Vector3(scale*initialScaleX[i],scale*initialScaleY[i],scale*initialScaleZ[i]);
+            availableShape[i].transform.GetChild(0).localScale = new Vector3(scale*initialScaleX[i],scale*initialScaleY[i],scale*initialScaleZ[i]);
         }
     }
     void Update()

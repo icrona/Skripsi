@@ -13,12 +13,16 @@ public class GalleryManager : MonoBehaviour {
     private int width;
     private int height;
     private int index;
-    private string selectedCakeID;
+    private int selectedCakeID;
     public Text galleryIndex;
     public Text emptyText;
+
     public Text nameText;
+    public Text frostingText;
     public Text sizeText;
     public Text flavourText;
+    public Text priceText;
+
     public Text timeStamp;
     private Sprite[] cakes;
     public GameObject imagePanel;
@@ -79,15 +83,16 @@ public class GalleryManager : MonoBehaviour {
                     emptyText.gameObject.SetActive(true);
                 }
                 
-                string sqlQuery1 = "SELECT * FROM Cake";
+                string sqlQuery1 = "SELECT * FROM Cake ORDER BY ID DESC";
                 dbCmd.CommandText = sqlQuery1;
 
                 using (IDataReader reader = dbCmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        cakeData.Add(new CakeGallery(reader.GetInt32(0),reader.GetString(1), reader.GetString(2), 
-                            reader.GetString(3), reader.GetString(8),(byte[])reader["Image1"], (byte[])reader["Image2"],(byte[])reader["Image3"],(byte[])reader["Image4"]));
+                        cakeData.Add(new CakeGallery(reader.GetInt32(0),reader.GetString(1), reader.GetInt32(2), reader.GetString(3), 
+                            reader.GetString(4), reader.GetString(5),reader.GetString(6), 
+                            reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(15), (byte[])reader["Image1"], (byte[])reader["Image2"],(byte[])reader["Image3"],(byte[])reader["Image4"]));
                     }
                     dbConnection.Close();
                     reader.Close();
@@ -139,10 +144,12 @@ public class GalleryManager : MonoBehaviour {
         }
         else
         {
-            selectedCakeID = cakeData[index].cakeID.ToString();
+            selectedCakeID = cakeData[index].cakeID;
             nameText.text = cakeData[index].nameText;
-            sizeText.text = cakeData[index].sizeText;
-            flavourText.text = cakeData[index].flavourText;
+            sizeText.text = cakeData[index].sizeText1 + " " +cakeData[index].sizeText2 + " "+ cakeData[index].sizeText3;
+            flavourText.text = cakeData[index].flavourText1 + " " + cakeData[index].flavourText2 + " " + cakeData[index].flavourText3;
+            frostingText.text = cakeData[index].frosting;
+            priceText.text = cakeData[index].price;
             timeStamp.text = cakeData[index].timeStamp;
             tex[0].LoadImage(cakeData[index].img1);
             tex[1].LoadImage(cakeData[index].img2);
@@ -238,6 +245,6 @@ public class GalleryManager : MonoBehaviour {
 
     public void getCakeId()
     {
-        PlayerPrefs.SetString("selectedCakeID", selectedCakeID);
+        PlayerPrefs.SetInt("selectedCakeID", selectedCakeID);
     }
 }

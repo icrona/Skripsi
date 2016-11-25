@@ -30,9 +30,10 @@ public class MenuManager : MonoBehaviour {
         menuName = new string[transform.childCount];
         menuName[0] = "Cake Basic";
         menuName[1] = "Frosting & Color";
-        menuName[2] = "Decoration";
-        menuName[3] = "Text";
-        menuName[4] = "Preview";
+        menuName[2] = "Sprinkle & Piping";
+        menuName[3] = "Decoration";
+        menuName[4] = "Text";
+        menuName[5] = "Preview";
         
     }
     public void backBtn()
@@ -78,13 +79,18 @@ public class MenuManager : MonoBehaviour {
             progressPercent -= 60 * Time.deltaTime;
             progressBar.fillAmount = progressPercent / 100f;
         }
-        if (index==4)
+        
+        if(index==1 && PlayerPrefs.GetInt("Frosting") == -1)
         {
             buttonNext.SetActive(false);
         }
         else
         {
             buttonNext.SetActive(true);
+        }
+        if (index == 5)
+        {
+            buttonNext.SetActive(false);
         }
     }
     public void updateCompletionText(int index)
@@ -110,5 +116,10 @@ public class MenuManager : MonoBehaviour {
     public void goToHome()
     {
         SceneManager.LoadScene("StartMenu");
+    }
+
+    public void goToOrder()
+    {
+        SceneManager.LoadScene("Order");
     }
 }

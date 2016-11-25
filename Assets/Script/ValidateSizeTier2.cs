@@ -12,5 +12,11 @@ public class ValidateSizeTier2 : MonoBehaviour, IPointerClickHandler
         {
             transform.GetChild(3).GetChild(0).GetChild(0).GetChild(i + 1).GetComponent<Toggle>().interactable = false;
         }
+
+        int upperSize = PlayerPrefs.GetInt("SizeTier3");
+        for (int i = 0; i < upperSize; i++)
+        {
+            transform.GetChild(3).GetChild(0).GetChild(0).GetChild(i + 1).GetComponent<Toggle>().interactable = false;
+        }
     }
 }

@@ -14,21 +14,18 @@ public class OrderManager : MonoBehaviour {
     private string filepath;
 
     private string nameCake;
-    private string size;
-    private string flavour;
+    private int numTier;
+    private string[] size;
+    private string[] flavour;
+    private string frosting;
+    private string price;
+
     private byte[] image1;
     private byte[] image2;
     private byte[] image3;
     private byte[] image4;
     public GameObject imagePanel;
     public GameObject []cakeImage;
-
-
-    public Text cakeName;
-    public Text cakeFlavour;
-    public Text cakeSize;
-    public Text cakeFrosting;
-    public Text cakePrice;
 
     public Text custNameText;
     public Text custPhoneText;
@@ -37,6 +34,8 @@ public class OrderManager : MonoBehaviour {
     public Text custAddressText;
     public Text custNotesText;
 
+    public GameObject cakeData;
+    public GameObject[] cakeDataByNumTier;
     public InputField enterName;
     public InputField enterPhone;
     public InputField enterEmail;
@@ -55,9 +54,11 @@ public class OrderManager : MonoBehaviour {
 
     void Start()
     {
+        size = new string[3];
+        flavour = new string[3];
         saveData = true;
         useData = false;
-        string selectedCakeID = PlayerPrefs.GetString("selectedCakeID");
+        int selectedCakeID = PlayerPrefs.GetInt("selectedCakeID");
         width = 5 * Screen.width / 7;
         height = Screen.height / 2;
         cakeImage = new GameObject[imagePanel.transform.childCount];
@@ -76,7 +77,7 @@ public class OrderManager : MonoBehaviour {
             using (IDbCommand dbCmd = dbConnection.CreateCommand())
             {
 
-                string sqlQuery = String.Format("SELECT * FROM Cake Where ID=\"{0}\"", selectedCakeID);
+                string sqlQuery = String.Format("SELECT * FROM Cake Where ID=\"{0}\"", selectedCakeID.ToString());
                 dbCmd.CommandText = sqlQuery;
 
                 using (IDataReader reader = dbCmd.ExecuteReader())
@@ -84,8 +85,15 @@ public class OrderManager : MonoBehaviour {
                     while (reader.Read())
                     {
                         nameCake = reader.GetString(1);
-                        size = reader.GetString(2);
-                        flavour = reader.GetString(3);
+                        numTier = reader.GetInt32(2);  
+                        size[0] = reader.GetString(3);
+                        size[1] = reader.GetString(4);
+                        size[2] = reader.GetString(5);
+                        frosting = reader.GetString(6);
+                        flavour[0] = reader.GetString(7);
+                        flavour[1] = reader.GetString(8);
+                        flavour[2] = reader.GetString(9);
+                        price = reader.GetString(10);
                         image1 = (byte[])reader["Image1"];
                         image2 = (byte[])reader["Image2"];
                         image3 = (byte[])reader["Image3"];
@@ -96,10 +104,42 @@ public class OrderManager : MonoBehaviour {
                 }
             }
         }
-
-        cakeName.text = nameCake;
-        cakeSize.text = size;
-        cakeFlavour.text = flavour;
+        cakeDataByNumTier = new GameObject[3];
+        for(int i = 0; i < 3; i++)
+        {
+            cakeDataByNumTier[i] = cakeData.transform.GetChild(i).gameObject;
+        }
+        cakeDataByNumTier[numTier - 1].SetActive(true);
+        switch (numTier)
+        {
+            case 1:
+                cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = flavour[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = frosting;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = price;
+                break;
+            case 2:
+                cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = "Tier 1: " + flavour[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = "Tier 2: " + flavour[1];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " +size[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 2: " + size[1];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = frosting;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = price;
+                break;
+            case 3:
+                cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = "Tier 1: " + flavour[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = "Tier 2: " + flavour[1];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 3: " + flavour[2];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 1: " + size[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = "Tier 2: " + size[1];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Tier 3: " + size[2];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(7).GetComponent<Text>().text = frosting;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = price;
+                break;
+        }
         tex[0].LoadImage(image1);
         tex[1].LoadImage(image2);
         tex[2].LoadImage(image3);
@@ -133,7 +173,6 @@ public class OrderManager : MonoBehaviour {
         custDateText.text = enterDate.text;
         custAddressText.text = enterAddress.text;
         custNotesText.text = enterNotes.text;
-
     }
 
     public void saveOrNot()

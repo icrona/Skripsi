@@ -9,17 +9,26 @@ public class SelectFrosting : MonoBehaviour {
     public Toggle[] selectFrosting;
     public GameObject colorPanel;
     private int selectedFrosting;
-	// Use this for initialization
-	void Start () {
+    public Texture2D[] frostingTextures;
+    // Use this for initialization
+    void Start () {
         colorPanel.SetActive(false);
         selectFrosting = new Toggle[frosting.transform.childCount];
         for (int i=0;i<frosting.transform.childCount;i++)
         {
-            selectFrosting[i] = frosting.transform.GetChild(i).GetComponent<Toggle>();
-            Toggle t = selectFrosting[i];
-            AddListener(t, i);
-
+            if (PlayerPrefs.GetInt("Frosting"+i)==1)
+            {
+                selectFrosting[i] = frosting.transform.GetChild(i).GetComponent<Toggle>();
+                Toggle t = selectFrosting[i];
+                AddListener(t, i);
+            }
+            else
+            {
+                frosting.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            
         }
+        frostingTextures = (Texture2D[])Resources.LoadAll<Texture2D>("Textures");
     }
     void AddListener(Toggle t,int i)
     {
@@ -29,7 +38,7 @@ public class SelectFrosting : MonoBehaviour {
     {
         if (i == 0)
         {
-            frostingWhite();
+            frostingButterCream();
             PlayerPrefs.SetInt("Frosting", 0);
         }
 
@@ -41,17 +50,27 @@ public class SelectFrosting : MonoBehaviour {
 
         else if (i==2)
         {
-            frostingWhite();
+            frostingIcing();
             PlayerPrefs.SetInt("Frosting", 2);
         }
     }
 	
 
-    private void frostingWhite()
+    private void frostingButterCream()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.mainTexture = null;
+            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.mainTexture = frostingTextures[1];
+            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1);
+        }
+        colorPanel.SetActive(true);
+    }
+
+    private void frostingIcing()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.mainTexture =null;
             transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1);
         }
         colorPanel.SetActive(true);
@@ -60,8 +79,8 @@ public class SelectFrosting : MonoBehaviour {
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.mainTexture = null;
-            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.color = new Color(181 / 255f, 112 / 255f, 74 / 255f);
+            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.mainTexture = frostingTextures[2];
+            transform.GetChild(i).GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 1, 1);
         }
         colorPanel.SetActive(false);
     }
@@ -75,6 +94,7 @@ public class SelectFrosting : MonoBehaviour {
                 selectFrosting[i] = frosting.transform.GetChild(i).GetComponent<Toggle>();
                 selectFrosting[i].isOn = false; 
             }
+            PlayerPrefs.SetInt("Frosting" , -1);
         }
     }
 }
