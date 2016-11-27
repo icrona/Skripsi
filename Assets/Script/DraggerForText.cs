@@ -9,6 +9,7 @@ public class DraggerForText : MonoBehaviour
     public int tier;
     public int index;
     public float distance;
+    private GameObject deleteText;
     void Start()
     {
         tier = transform.parent.parent.parent.GetSiblingIndex();
@@ -39,6 +40,7 @@ public class DraggerForText : MonoBehaviour
             }
         }
         transform.GetComponent<TextSize>().enabled = true;
+
     }
     void OnMouseDrag()
     {
@@ -67,6 +69,14 @@ public class DraggerForText : MonoBehaviour
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance-1.5f);
         objectPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objectPosition;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "DeleteText")
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
