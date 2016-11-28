@@ -109,12 +109,14 @@
     <Compile Include="Assets\Script\LoadDatabase.cs" />
     <Compile Include="Assets\Script\MenuManager.cs" />
     <Compile Include="Assets\Script\OrderManager.cs" />
+    <Compile Include="Assets\Script\PipingAndSprinklePosition.cs" />
     <Compile Include="Assets\Script\PlayerPrefsReset.cs" />
     <Compile Include="Assets\Script\Positioning.cs" />
     <Compile Include="Assets\Script\Positioning2.cs" />
     <Compile Include="Assets\Script\SelectColor.cs" />
     <Compile Include="Assets\Script\SelectFlavour.cs" />
     <Compile Include="Assets\Script\SelectFrosting.cs" />
+    <Compile Include="Assets\Script\SelectPiping.cs" />
     <Compile Include="Assets\Script\SelectShape.cs" />
     <Compile Include="Assets\Script\SelectSize.cs" />
     <Compile Include="Assets\Script\StartMenu.cs" />
