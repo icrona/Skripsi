@@ -1,52 +1,51 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class AddDecoration : MonoBehaviour {
 
     // Use this for initialization
-    public GameObject decorationPrefab;
-    private GameObject decoration;
+    public GameObject []decorationPrefab;
+    private GameObject decorationInstantiate;
     private GameObject[] list;
     public int index;
+
+    private Button[] decoration;
+    public GameObject decorations;
+    private int numOfDecoration;
     void Start()
-    {
-        /*
-        list = new GameObject[transform.GetChild(0).GetChild(0).GetChild(0).childCount];
-        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).childCount; i++)
+    {  
+        numOfDecoration = decorations.transform.childCount;
+        decoration = new Button[numOfDecoration];
+        decorationPrefab = new GameObject[numOfDecoration];
+        decorationPrefab = (GameObject[])Resources.LoadAll<GameObject>("Prefab/Candles");
+        for (int i = 0; i < numOfDecoration; i++)
         {
-            list[i] = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(i).gameObject;
+            decoration[i] = decorations.transform.GetChild(i).GetComponent<Button>();
+            Button b = decoration[i];
+            AddListener(b, i);
         }
-        */
     }
-    public void add()
+
+    void AddListener(Button b, int i)
+    {
+        b.onClick.AddListener(() => addDecoration(i));
+    }
+
+    public void addDecoration(int x)
     {
         transform.parent.parent.GetComponent<CakeRotate>().enabled = false;
-        //dont forget add available shape
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeSelf)
             {
                 index = i;
-            }
-            
-        }
-        decoration = Instantiate(decorationPrefab, new Vector3(0f, -20f, 180f), Quaternion.identity) as GameObject;
+            }            
+        }        
+        decorationInstantiate = Instantiate(decorationPrefab[x], new Vector3(0f, -20f, 180f), Quaternion.identity) as GameObject;
+        
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
-        decoration.transform.parent = transform.GetChild(index).GetChild(1);
-        decoration.transform.localRotation = Quaternion.Euler(90, 180, 0);
-        decoration.transform.localScale = new Vector3(3,3,3);
+        
+        decorationInstantiate.transform.parent = transform.GetChild(index).GetChild(1);
     }
 
-    public void addList()
-    {
-        StartCoroutine(listAnimate());
-    }
-    IEnumerator listAnimate()
-    {
-        for(int i = 0; i < list.Length; i++)
-        {
-            list[i].SetActive(true);
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
 }

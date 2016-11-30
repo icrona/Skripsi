@@ -90,6 +90,7 @@ public class CakeRotate : MonoBehaviour
     {
         rotateOnlyOnY = false;
         rotateOnlyOnZ = false;
+        resetRotation();
     }
     public void resetRotation()
     {

@@ -109,8 +109,7 @@ public class SelectPiping : MonoBehaviour {
             current =x;
             StartCoroutine(pipeAnimate(current));       
             showColorPanel();
-        }
-            
+        }          
     }
 
     void pickColor(Button b, int x)
@@ -124,26 +123,30 @@ public class SelectPiping : MonoBehaviour {
             colorButton[i].interactable = true;
         }
 
-        material[2].color = color[x];
+        material[0].color = color[x];
         index = x;
         b.interactable = false;
         slider.value = 0.5f;
         intensity = 0.5f;
+        if (index == 0)
+        {
+            slider.interactable=false;
+        }
     }
 
     void hidePipe()
     {
-        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(current).childCount; i++)
+        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(current).GetChild(i).gameObject.SetActive(false);
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(false);
         }
     }
 
     IEnumerator pipeAnimate(int current)
     {
-        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(current).childCount; i++)
+        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(current).GetChild(i).gameObject.SetActive(true);
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.02f);
         }
     }
@@ -227,22 +230,25 @@ public class SelectPiping : MonoBehaviour {
     void Update () {
 
         hsl = RgbaToHsl(color[index]);
-
-        if (slider.value >= 0.5)
+        if (index != 0)
         {
-            intensity = slider.value;
-            hsl.z = intensity;
-            rgb = HslToRgba(hsl);
-            material[2].color = rgb;
-        }
-        if (slider.value < 0.5)
-        {
+            if (slider.value >= 0.5)
+            {
+                intensity = slider.value;
+                hsl.z = intensity;
+                rgb = HslToRgba(hsl);
+                material[0].color = rgb;
+            }
+            if (slider.value < 0.5)
+            {
 
-            Color.RGBToHSV(color[index], out H, out S, out V);
+                Color.RGBToHSV(color[index], out H, out S, out V);
 
-            intensity = (slider.value / 0.5f) * V;
-            V = intensity;
-            material[2].color = Color.HSVToRGB(H, S, V);
+                intensity = (slider.value / 0.5f) * V;
+                V = intensity;
+                material[0].color = Color.HSVToRGB(H, S, V);
+            }
         }
+        
     }
 }

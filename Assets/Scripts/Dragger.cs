@@ -25,13 +25,11 @@ public class Dragger : MonoBehaviour {
     void OnMouseDown()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
-        transform.parent.parent.parent.parent.rotation = Quaternion.Euler(90, 180, 0);
     }
     
     void OnMouseDrag()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
-        transform.localScale = new Vector3(1, 1, 1);
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         height = transform.parent.parent.parent.GetChild(index).GetChild(0).GetComponent<MeshFilter>().mesh.bounds.size.y * transform.parent.parent.parent.GetChild(index).GetChild(0).localScale.y;
         if (tier == 2)
