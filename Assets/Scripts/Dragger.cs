@@ -26,6 +26,10 @@ public class Dragger : MonoBehaviour {
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
     }
+    void OnMouseUp()
+    {
+        transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = true;
+    }
     
     void OnMouseDrag()
     {

@@ -4,16 +4,24 @@ using UnityEngine.UI;
 
 public class AddText : MonoBehaviour
 {
-
     // Use this for initialization
     public GameObject textPrefab;
     private GameObject text;
+    public GameObject textColor;
+    public InputField textText;
     public int index;
-
+    public int tier;
+    void Start()
+    {
+        tier = transform.GetSiblingIndex();
+    }
     public void add()
     {
         transform.parent.parent.GetComponent<CakeRotate>().enabled = false;
-        //dont forget add available shape
+        textColor.SetActive(true);
+        textText.text = "Add Text";
+        PlayerPrefs.SetInt("TextTier", tier);
+        PlayerPrefs.SetInt("TextIndex", (transform.GetChild(index).GetChild(2).childCount));
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeSelf)

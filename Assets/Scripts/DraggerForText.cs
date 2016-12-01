@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DraggerForText : MonoBehaviour
 {
@@ -42,8 +43,9 @@ public class DraggerForText : MonoBehaviour
             }
         }
         transform.GetComponent<TextSize>().enabled = true;
-
     }
+
+
     void OnMouseDrag()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;
@@ -94,11 +96,14 @@ public class DraggerForText : MonoBehaviour
 
     void OnMouseUp()
     {
+        transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = true;
         if (delete)
         {
             Destroy(gameObject);
             delete = false;
             deleteText.transform.localScale = new Vector3(1f, 1f, 1f);
+            deleteText.transform.parent.GetChild(tier).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            deleteText.transform.parent.GetChild(tier).GetChild(0).GetChild(2).GetComponent<InputField>().text = "";
         }
     }
 

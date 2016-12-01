@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class TurnZoom : MonoBehaviour
 {
-    public GameObject rotate;
+    public GameObject cake;
 
 
     // Update is called once per frame
     void Update()
     {
-        if (!rotate.GetComponent<CakeZoom>().isActiveAndEnabled)
+        if (!cake.GetComponent<CakeZoom>().isActiveAndEnabled)
         {
             transform.GetComponent<Toggle>().isOn = false;
         }
@@ -24,7 +24,7 @@ public class TurnZoom : MonoBehaviour
     {
         if (on)
         {
-            rotate.GetComponent<CakeZoom>().enabled = true;
+            cake.GetComponent<CakeZoom>().enabled = true;
         }
     }
 }

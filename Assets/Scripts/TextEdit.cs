@@ -28,8 +28,6 @@ public class TextEdit : MonoBehaviour {
         colorPanel = TextPanel.transform.GetChild(tier).GetChild(0).GetChild(0).gameObject;
         selectColor = colorPanel.transform.GetChild(2).GetChild(0).gameObject;
         slider = colorPanel.transform.GetChild(0).GetChild(0).gameObject;
-        PlayerPrefs.SetInt("TextIndex", -1);
-        PlayerPrefs.SetInt("TextTier", -1);
 
         color = new Vector4[17];
         color[0] = new Vector4(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
@@ -173,7 +171,6 @@ public class TextEdit : MonoBehaviour {
                 }
             }
         }
-
         intensity = temp;
         slider.GetComponent<Slider>().value = temp;
     }
@@ -208,8 +205,7 @@ public class TextEdit : MonoBehaviour {
                     V = intensity;
                     transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.HSVToRGB(H, S, V);
                 }
-            }
-                
+            }                
         }       
     }
 }
