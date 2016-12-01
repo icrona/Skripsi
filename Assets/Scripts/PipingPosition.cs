@@ -12,12 +12,12 @@ public class PipingPosition : MonoBehaviour {
     public Material [] material;
     public int tier;
     int y;
-    Material[] mats;
+    public Material[] mats,mats1,mats2;
     void Start () {
         material = new Material[3];
         pipes = new GameObject[3, 20];
-        position = new Vector3[3, 36];
-        rotation = new Quaternion[3, 36];
+        position = new Vector3[3, 50];
+        rotation = new Quaternion[3, 50];
         numOfPipe = new int[3];
         kindOfPipe = new int[3];
         tier = transform.parent.parent.parent.GetSiblingIndex() + 1;
@@ -82,13 +82,13 @@ public class PipingPosition : MonoBehaviour {
         }
 
         pipes[0, 1] = transform.GetChild(0).GetChild(2).gameObject;
-        mats = pipes[0, 1].transform.GetChild(0).GetChild(1).GetComponent<Renderer>().materials;
-        mats[0] = material[0];
+        mats1 = pipes[0, 1].transform.GetChild(0).GetChild(1).GetComponent<Renderer>().materials;
+        mats1[0] = material[0];
         for (int i = 0; i < pipes[0, 1].transform.childCount; i++)
         {
-            if (i % 2!=0)
+            if (i % 2==0)
             {
-                pipes[0, 1].transform.GetChild(i).GetChild(1).GetComponent<Renderer>().materials = mats;
+                pipes[0, 1].transform.GetChild(i).GetChild(1).GetComponent<Renderer>().materials = mats1;
             }
             else
             {
@@ -97,17 +97,17 @@ public class PipingPosition : MonoBehaviour {
         }
 
         pipes[0, 2] = transform.GetChild(0).GetChild(3).gameObject;
-        mats = pipes[0, 2].transform.GetChild(0).GetChild(0).GetComponent<Renderer>().materials;
-        mats[0] = material[0];
-        for (int i = 0; i < pipes[0, 1].transform.childCount; i++)
+        mats2 = pipes[0, 2].transform.GetChild(0).GetChild(0).GetComponent<Renderer>().materials;
+        mats2[0] = material[0];
+        for (int i = 0; i < pipes[0, 2].transform.childCount; i++)
         {
-            if (i % 2 != 0)
+            if (i % 2 == 0)
             {
-                pipes[0, 1].transform.GetChild(i).GetChild(0).GetComponent<Renderer>().materials = mats;
+                pipes[0, 2].transform.GetChild(i).GetChild(0).GetComponent<Renderer>().materials = mats2;
             }
             else
             {
-                pipes[0, 1].transform.GetChild(i).GetChild(0).GetComponent<Renderer>().sharedMaterial = material[0];
+                pipes[0, 2].transform.GetChild(i).GetChild(0).GetComponent<Renderer>().sharedMaterial = material[0];
             }
         }
     }

@@ -10,6 +10,8 @@ public class SelectSprinkleSide : MonoBehaviour {
     public int current;
     public GameObject selectedSprinkle;
     private int tier;
+
+    private int shape;
     void Start () {
         numOfSprinkle = sprinkles.transform.childCount;
         selectedSprinkle = new GameObject();
@@ -35,13 +37,20 @@ public class SelectSprinkleSide : MonoBehaviour {
         {
             sprinkle[i].interactable = true;
         }
-        selectedSprinkle = transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).GetChild(current).gameObject;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                shape = i;
+            }
+        }
+        selectedSprinkle = transform.GetChild(shape).GetChild(0).GetChild(1).GetChild(1).GetChild(current).gameObject;
         hideSprinkle();
         b.interactable = false;
         if (x != 0)
         {
             current = x-1;
-            selectedSprinkle = transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).GetChild(current).gameObject;
+            selectedSprinkle = transform.GetChild(shape).GetChild(0).GetChild(1).GetChild(1).GetChild(current).gameObject;
             StartCoroutine(sprinkleAnimate(current));
         }
     }
@@ -50,7 +59,7 @@ public class SelectSprinkleSide : MonoBehaviour {
     {
         for (int i = 0; i < selectedSprinkle.transform.childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).GetChild(current).GetChild(i).gameObject.SetActive(false);
+            selectedSprinkle.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
@@ -59,7 +68,7 @@ public class SelectSprinkleSide : MonoBehaviour {
         Debug.Log(selectedSprinkle.transform.childCount);
         for (int i = 0; i < selectedSprinkle.transform.childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).GetChild(current).GetChild(i).gameObject.SetActive(true);
+            selectedSprinkle.transform.GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.01f);
         }
     }

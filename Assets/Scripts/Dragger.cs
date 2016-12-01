@@ -8,9 +8,12 @@ public class Dragger : MonoBehaviour {
     public int tier;
     public int index;
     public float distance;
+    private bool delete;
+    private GameObject deleteDecoration;
     void Start()
     {
         tier = transform.parent.parent.parent.GetSiblingIndex();
+        delete = false;
     }
     void Update()
     {
@@ -29,6 +32,12 @@ public class Dragger : MonoBehaviour {
     void OnMouseUp()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = true;
+        if (delete)
+        {
+            Destroy(gameObject);
+            delete = false;
+            deleteDecoration.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
     }
     
     void OnMouseDrag()
@@ -57,6 +66,25 @@ public class Dragger : MonoBehaviour {
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y,distance);
         objectPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objectPosition;
-    }  
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "DeleteDecoration")
+        {
+            deleteDecoration = collision.gameObject;
+            collision.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            delete = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "DeleteDecoration")
+        {
+            collision.transform.localScale = new Vector3(1f, 1f, 1f);
+            delete = false;
+        }
+    }
 
 }

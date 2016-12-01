@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddCandle.cs" />
+    <Compile Include="Assets\Scripts\AddFigure.cs" />
     <Compile Include="Assets\Scripts\AddText.cs" />
     <Compile Include="Assets\Scripts\CakeColor.cs" />
     <Compile Include="Assets\Scripts\CakeData.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Scripts\CakeRotate.cs" />
     <Compile Include="Assets\Scripts\CakeZoom.cs" />
     <Compile Include="Assets\Scripts\DataValidation.cs" />
+    <Compile Include="Assets\Scripts\DecorationManager.cs" />
     <Compile Include="Assets\Scripts\Dragger.cs" />
     <Compile Include="Assets\Scripts\DraggerForText.cs" />
     <Compile Include="Assets\Scripts\ExitApps.cs" />
@@ -116,10 +118,13 @@
     <Compile Include="Assets\Scripts\SelectColor.cs" />
     <Compile Include="Assets\Scripts\SelectFlavour.cs" />
     <Compile Include="Assets\Scripts\SelectFrosting.cs" />
+    <Compile Include="Assets\Scripts\SelectPipingBottom.cs" />
+    <Compile Include="Assets\Scripts\SelectPipingEdge.cs" />
     <Compile Include="Assets\Scripts\SelectPipingTop.cs" />
     <Compile Include="Assets\Scripts\SelectShape.cs" />
     <Compile Include="Assets\Scripts\SelectSize.cs" />
     <Compile Include="Assets\Scripts\SelectSprinkleSide.cs" />
+    <Compile Include="Assets\Scripts\SprinklePipingManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\TextEdit.cs" />
     <Compile Include="Assets\Scripts\TextSize.cs" />

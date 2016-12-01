@@ -14,6 +14,7 @@ public class TierManagement : MonoBehaviour {
 
     public GameObject CakeBasic;
     public GameObject FrostingColor;
+    public GameObject SprinklePiping;
     public GameObject Decoration;
     public GameObject Text;
     private int index;
@@ -50,6 +51,7 @@ public class TierManagement : MonoBehaviour {
         CakeBasic.transform.GetChild(index).gameObject.SetActive(true);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(true);
         Decoration.transform.GetChild(index).gameObject.SetActive(true);
+        SprinklePiping.transform.GetChild(index).gameObject.SetActive(true);
         Text.transform.GetChild(index).gameObject.SetActive(true);
     }
     private void deactivate()
@@ -57,6 +59,7 @@ public class TierManagement : MonoBehaviour {
         CakeBasic.transform.GetChild(index).gameObject.SetActive(false);
         FrostingColor.transform.GetChild(index).gameObject.SetActive(false);
         Decoration.transform.GetChild(index).gameObject.SetActive(false);
+        SprinklePiping.transform.GetChild(index).gameObject.SetActive(false);
         Text.transform.GetChild(index).gameObject.SetActive(false);
     }
     public void updateText()

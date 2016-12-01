@@ -45,10 +45,10 @@ public class LoadDatabase : MonoBehaviour {
 
             PlayerPrefs.SetInt("Size0", 16);
             PlayerPrefs.SetInt("Size1", 20);
-            PlayerPrefs.SetInt("Size2", 22);
+            PlayerPrefs.SetInt("Size2", 24);
 
             PlayerPrefs.SetInt("Shape0", 1);
-            PlayerPrefs.SetInt("Shape1", 0);
+            PlayerPrefs.SetInt("Shape1", 1);
             PlayerPrefs.SetInt("Shape2", 1);
 
             PlayerPrefs.SetString("Flavour0", "Vanila");
@@ -58,7 +58,7 @@ public class LoadDatabase : MonoBehaviour {
 
             PlayerPrefs.SetInt("Frosting0", 1);
             PlayerPrefs.SetInt("Frosting1", 1);
-            PlayerPrefs.SetInt("Frosting2", 0);
+            PlayerPrefs.SetInt("Frosting2", 1);
         }
 
         using (IDbConnection dbConnection = new SqliteConnection(connectionString))
@@ -100,10 +100,10 @@ public class LoadDatabase : MonoBehaviour {
 
         PlayerPrefs.SetInt("Size0", 16);
         PlayerPrefs.SetInt("Size1", 20);
-        PlayerPrefs.SetInt("Size2", 22);
+        PlayerPrefs.SetInt("Size2", 24);
 
         PlayerPrefs.SetInt("Shape0", 1);
-        PlayerPrefs.SetInt("Shape1", 0);
+        PlayerPrefs.SetInt("Shape1", 1);
         PlayerPrefs.SetInt("Shape2", 1);
 
         PlayerPrefs.SetString("Flavour0", "Vanila");
@@ -113,7 +113,7 @@ public class LoadDatabase : MonoBehaviour {
 
         PlayerPrefs.SetInt("Frosting0", 1);
         PlayerPrefs.SetInt("Frosting1", 1);
-        PlayerPrefs.SetInt("Frosting2", 0);
+        PlayerPrefs.SetInt("Frosting2", 1);
 
     }
 	

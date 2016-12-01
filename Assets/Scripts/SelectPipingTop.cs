@@ -7,16 +7,18 @@ public class SelectPipingTop : MonoBehaviour {
     // Use this for initialization
     public GameObject colorPipePanel;
     public GameObject pickPipePanel;
+    public GameObject PipingLable;
+    public GameObject PipingButton;
     private Button[] pipe;
     public GameObject pipes;
     private int numOfPipe;
     private int current;
 
     public GameObject selectColor;
-    public Button[] colorButton;
-    public Vector4[] color;
-    public Vector4 hsl, rgb;
-    public float intensity;
+    private Button[] colorButton;
+    private Vector4[] color;
+    private Vector4 hsl, rgb;
+    private float intensity;
     public Slider slider;
     float H, S, V;
     private int index;
@@ -24,6 +26,7 @@ public class SelectPipingTop : MonoBehaviour {
     public Material[] material;
     public int tier;
 
+    private int shape;
     void Start () {
 
         color = new Vector4[17];
@@ -85,6 +88,7 @@ public class SelectPipingTop : MonoBehaviour {
                 material = (Material[])Resources.LoadAll<Material>("Pipe/Materials/Tier3");
                 break;
         }
+        material[0].color = Color.white;
     }
 	void AddListener(Button b,int i)
     {
@@ -102,12 +106,19 @@ public class SelectPipingTop : MonoBehaviour {
         {
             pipe[i].interactable = true;
         }
-        hidePipe();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                shape = i;
+            }
+        }
+        hidePipe(shape);
         b.interactable = false;
         if (x != 0)
         {
             current =x;
-            StartCoroutine(pipeAnimate(current));       
+            StartCoroutine(pipeAnimate(current,shape));       
             showColorPanel();
         }          
     }
@@ -134,19 +145,19 @@ public class SelectPipingTop : MonoBehaviour {
         }
     }
 
-    void hidePipe()
+    void hidePipe(int shape)
     {
-        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
+        for (int i = 0; i < transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(false);
+            transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(false);
         }
     }
 
-    IEnumerator pipeAnimate(int current)
+    IEnumerator pipeAnimate(int current,int shape)
     {
-        for (int i = 0; i < transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
+        for (int i = 0; i < transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
-            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(true);
+            transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.02f);
         }
     }
@@ -154,12 +165,16 @@ public class SelectPipingTop : MonoBehaviour {
     void showColorPanel()
     {
         pickPipePanel.SetActive(false);
+        PipingLable.SetActive(false);
+        PipingButton.SetActive(false);
         colorPipePanel.SetActive(true);
     }
 
     public void hideColorPanel()
     {
         colorPipePanel.SetActive(false);
+        PipingLable.SetActive(true);
+        PipingButton.SetActive(true);
         pickPipePanel.SetActive(true);
     }
 
