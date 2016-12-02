@@ -35,8 +35,13 @@ public class CakeData : MonoBehaviour
     public GameObject[] theCake;
     private bool empty;
     public Button order;
-
+    public bool saved;
     private int selectedCakeID;
+
+    public Text previewSize;
+    public Text previewFlavour;
+    public Text previewFrosting;
+    public Text previewPrice;
 
     void Start()
     {
@@ -56,6 +61,7 @@ public class CakeData : MonoBehaviour
 
         filepath = Application.persistentDataPath + "/CakeDB.sqlite";
         connectionString = "URI=file:" + filepath;
+        saved = false;
     }
     private void SaveCake(string name, int numTier, string size1, string size2, string size3, string frosting,string flavour1, string flavour2, string flavour3, string price, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
     {
@@ -116,14 +122,14 @@ public class CakeData : MonoBehaviour
         }
         else
         {
-            collectData();
+            collectData();            
             warningText.text = "Your cake has been saved, you can order now or later from gallery menu";
             warningPanel.SetActive(true);
             hideCakeNamePanel();
             empty = false;
             SaveCake(cName,numTier,cSize[0], cSize[1], cSize[2],cFrosting, cFlavour[0],cFlavour[1],cFlavour[2],cPrice, bytes1, bytes2, bytes3, bytes4);
             order.GetComponent<Button>().interactable = true;
-
+            saved = true;
         }
     }
     public void warningOk()
@@ -150,6 +156,32 @@ public class CakeData : MonoBehaviour
         }
         cFrosting = frostingName[PlayerPrefs.GetInt("Frosting")];
         cPrice = "Rp 250.000";
+    }
+
+    public void showPreviewData()
+    {
+        collectData();
+        for (int i = 0; i < numTier; i++)
+        {
+            if (i != 0)
+            {
+                previewSize.text += ", ";
+                previewFlavour.text += ", ";
+            }
+            previewSize.text += cSize[i];          
+            previewFlavour.text += cFlavour[i];
+            
+        }
+        previewFrosting.text=cFrosting;
+        previewPrice.text=cPrice;
+    }
+
+    public void resetPreviewData()
+    {
+        previewSize.text = "";
+        previewFlavour.text = "";
+        previewPrice.text = "";
+        previewFrosting.text = "";
     }
     void Update()
     {        

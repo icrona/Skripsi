@@ -16,9 +16,6 @@ public class DraggerForText : MonoBehaviour
     {
         tier = transform.parent.parent.parent.GetSiblingIndex();
         delete = false;
-    }
-    void Update()
-    {
         for (int i = 0; i < transform.parent.parent.parent.childCount; i++)
         {
             if (transform.parent.parent.parent.GetChild(i).gameObject.activeSelf)
@@ -27,6 +24,7 @@ public class DraggerForText : MonoBehaviour
             }
         }
     }
+
     void OnMouseDown()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;

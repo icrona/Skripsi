@@ -33,6 +33,13 @@ public class AddText : MonoBehaviour
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         text.transform.parent = transform.GetChild(index).GetChild(2);
         text.transform.localRotation = Quaternion.Euler(90, 180, 0);
+        releaseLock();
+    }
+
+    void releaseLock()
+    {
+        transform.parent.GetComponent<LockDecorationAndText>().textLock(false);
+        transform.parent.GetComponent<LockDecorationAndText>().lockText.gameObject.transform.parent.GetComponent<Toggle>().isOn = false;
     }
 
 }

@@ -102,13 +102,13 @@
     <Compile Include="Assets\Scripts\DecorationManager.cs" />
     <Compile Include="Assets\Scripts\Dragger.cs" />
     <Compile Include="Assets\Scripts\DraggerForText.cs" />
-    <Compile Include="Assets\Scripts\ExitApps.cs" />
     <Compile Include="Assets\Scripts\GalleryConfirmation.cs" />
     <Compile Include="Assets\Scripts\GalleryManager.cs" />
     <Compile Include="Assets\Scripts\HelpManager.cs" />
     <Compile Include="Assets\Scripts\HomePanelManager.cs" />
     <Compile Include="Assets\Scripts\KnifeAnimate.cs" />
     <Compile Include="Assets\Scripts\LoadDatabase.cs" />
+    <Compile Include="Assets\Scripts\LockDecorationAndText.cs" />
     <Compile Include="Assets\Scripts\MenuManager.cs" />
     <Compile Include="Assets\Scripts\OrderManager.cs" />
     <Compile Include="Assets\Scripts\PipingPosition.cs" />
@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\SelectShape.cs" />
     <Compile Include="Assets\Scripts\SelectSize.cs" />
     <Compile Include="Assets\Scripts\SelectSprinkleSide.cs" />
+    <Compile Include="Assets\Scripts\SelectSprinkleTop.cs" />
     <Compile Include="Assets\Scripts\SprinklePipingManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\TextEdit.cs" />

@@ -11,6 +11,7 @@ public class AddCandle : MonoBehaviour {
     private Button[] candle;
     public GameObject candles;
     private int numOfCandle;
+
     void Start()
     {
         numOfCandle = candles.transform.childCount;
@@ -45,6 +46,12 @@ public class AddCandle : MonoBehaviour {
         
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         candleInstantiate.transform.parent = transform.GetChild(index).GetChild(1);
+        releaseLock();
+    }
+    void releaseLock()
+    {
+        transform.parent.GetComponent<LockDecorationAndText>().decorationLock(false);
+        transform.parent.GetComponent<LockDecorationAndText>().lockDecoration.gameObject.transform.parent.GetComponent<Toggle>().isOn = false;
     }
 
 }

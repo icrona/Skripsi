@@ -45,5 +45,12 @@ public class AddFigure : MonoBehaviour {
 
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         figureInstantiate.transform.parent = transform.GetChild(index).GetChild(1);
+        releaseLock();
     }
+    void releaseLock()
+    {
+        transform.parent.GetComponent<LockDecorationAndText>().decorationLock(false);
+        transform.parent.GetComponent<LockDecorationAndText>().lockDecoration.gameObject.transform.parent.GetComponent<Toggle>().isOn = false;
+    }
+
 }

@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour {
     public GameObject cakeList;
     public GameObject sidePanel;
     public GameObject buttonNext;
+    public GameObject buttonBack;
     public int index;
     public Text menuLabel;
     public string[] menuName;
@@ -34,11 +35,19 @@ public class MenuManager : MonoBehaviour {
         menuName[3] = "Decoration";
         menuName[4] = "Text";
         menuName[5] = "Preview";
-        
+        buttonBack.SetActive(false);
     }
     public void backBtn()
     {
+        if (index == 5)
+        {
+            transform.GetComponent<CakeData>().resetPreviewData();
+        }
         index--;
+        if (index == 0)
+        {
+            buttonBack.SetActive(false);
+        }
         if (index<0)
         {
             SceneManager.LoadScene("StartMenu");
@@ -51,16 +60,18 @@ public class MenuManager : MonoBehaviour {
         activeCurrMenu();
     }
     public void nextBtn()
-    {
+    { 
         index++;
-        if (index == menuList.Length)
+        if (index == 1)
         {
-            goToHome();
+            buttonBack.SetActive(true);
         }
-        else {
-            menuListLabel();
-            updateCompletionText(index);
+        if(index == 5)
+        {
+            transform.GetComponent<CakeData>().showPreviewData();
         }
+        menuListLabel();
+        updateCompletionText(index);
         activeCurrMenu();
     }
     public void menuListLabel()

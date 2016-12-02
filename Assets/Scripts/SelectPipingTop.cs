@@ -9,7 +9,7 @@ public class SelectPipingTop : MonoBehaviour {
     public GameObject pickPipePanel;
     public GameObject PipingLable;
     public GameObject PipingButton;
-    private Button[] pipe;
+    public Button[] pipe;
     public GameObject pipes;
     private int numOfPipe;
     private int current;
@@ -100,9 +100,13 @@ public class SelectPipingTop : MonoBehaviour {
         b.onClick.AddListener(() => pickColor(b, i));
     }
 
-    void pickPipe(Button b,int x)
+    public void pickPipe(Button b,int x)
     {
-        for(int i=0;i< numOfPipe; i++)
+        if (transform.GetComponent<SelectPipingEdge>().pipe[0].interactable)
+        {
+            transform.GetComponent<SelectPipingEdge>().pickPipe(transform.GetComponent<SelectPipingEdge>().pipe[0], 0);
+        }
+        for (int i=0;i< numOfPipe; i++)
         {
             pipe[i].interactable = true;
         }
@@ -120,7 +124,9 @@ public class SelectPipingTop : MonoBehaviour {
             current =x;
             StartCoroutine(pipeAnimate(current,shape));       
             showColorPanel();
-        }          
+        }
+
+                  
     }
 
     void pickColor(Button b, int x)

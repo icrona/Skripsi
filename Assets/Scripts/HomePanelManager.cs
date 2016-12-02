@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class HomePanelManager : MonoBehaviour
 {
-
     // Use this for initialization
     public GameObject homePanel;
     int show;
@@ -17,7 +17,15 @@ public class HomePanelManager : MonoBehaviour
     }
     public void showHome()
     {
-        show = 1;
+        if (transform.GetComponent<CakeData>().saved)
+        {
+            SceneManager.LoadScene("StartMenu");
+        }
+        else
+        {
+            show = 1;
+        }
+        
     }
     public void hideHome()
     {
