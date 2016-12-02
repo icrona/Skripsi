@@ -12,8 +12,8 @@ public class HomePanelManager : MonoBehaviour
     private float speed = 1000;
     private void Start()
     {
-        hidePos = new Vector3(-562.5f, 0, 0);
-        showPos = new Vector3(-187.5f, 0, 0);
+        hidePos = new Vector3(-562.5f, 50, 0);
+        showPos = new Vector3(-187.5f, 50, 0);
     }
     public void showHome()
     {

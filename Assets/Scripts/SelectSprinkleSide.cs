@@ -65,7 +65,6 @@ public class SelectSprinkleSide : MonoBehaviour {
 
     IEnumerator sprinkleAnimate(int current)
     {
-        Debug.Log(selectedSprinkle.transform.childCount);
         for (int i = 0; i < selectedSprinkle.transform.childCount; i++)
         {
             selectedSprinkle.transform.GetChild(i).gameObject.SetActive(true);
