@@ -50,9 +50,11 @@ public class AddFigure : MonoBehaviour {
             }
         }
         figureInstantiate = Instantiate(figurePrefab[x], new Vector3(0f, -20f, 180f), Quaternion.Euler(new Vector3(0, 180, 0))) as GameObject;
+        figureInstantiate.name = transform.parent.GetComponent<CakePrice>().getFigurePrice()[x].ToString();
 
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         figureInstantiate.transform.parent = transform.GetChild(index).GetChild(1);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
         releaseLock();
     }
     void releaseLock()

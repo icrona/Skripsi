@@ -36,9 +36,9 @@ public class Dragger : MonoBehaviour {
             Destroy(gameObject);
             delete = false;
             deleteDecoration.transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.parent.parent.parent.parent.GetComponent<CakePrice>().substractCakePrice(gameObject.name);
         }
     }
-    
     void OnMouseDrag()
     {
         transform.parent.parent.parent.parent.parent.GetComponent<CakeRotate>().enabled = false;

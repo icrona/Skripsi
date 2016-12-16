@@ -57,6 +57,8 @@ public class SelectSprinkleSide : MonoBehaviour {
             selectedSprinkle = transform.GetChild(shape).GetChild(0).GetChild(1).GetChild(1).GetChild(current).gameObject;
             StartCoroutine(sprinkleAnimate(current));
         }
+        PlayerPrefs.SetInt("SprinkleSideTier" + tier, x);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
 
     void hideSprinkle()

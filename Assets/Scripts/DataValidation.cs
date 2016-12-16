@@ -47,8 +47,8 @@ public class DataValidation : MonoBehaviour {
         ColorUtility.TryParseHtmlString(greenHexColor, out green);
         ColorUtility.TryParseHtmlString(redHexColor, out red);
         isTriggered = false;
-        SelectedDate.now = SelectedDate.now.AddDays(3);
-        isValidDate = true;
+        SelectedDate.now = SelectedDate.now.AddDays(PlayerPrefs.GetInt("MinDays")-1);
+        isValidDate = false;
         isValidPhone = false;
         isValidName = false;
         isValidAddress = false;

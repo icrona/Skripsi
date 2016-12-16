@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MainMenu.unity
+- path: Assets/Scenes/Signature.unity
   isLoaded: 1
   isActive: 1

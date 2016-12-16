@@ -51,9 +51,13 @@ public class AddCandle : MonoBehaviour {
             }            
         }
         candleInstantiate = Instantiate(candlePrefab[x], new Vector3(0f, -20f, 180f), Quaternion.Euler(new Vector3(0,180,0))) as GameObject;
+
+        candleInstantiate.name = transform.parent.GetComponent<CakePrice>().getCandlePrice()[x].ToString();
+        
         
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         candleInstantiate.transform.parent = transform.GetChild(index).GetChild(1);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
         releaseLock();
     }
     void releaseLock()

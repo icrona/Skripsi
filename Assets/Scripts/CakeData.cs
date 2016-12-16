@@ -5,6 +5,8 @@ using System.Data;
 using Mono.Data.Sqlite;
 using UnityEngine.UI;
 using System.IO;
+using System.Globalization;
+
 public class CakeData : MonoBehaviour
 {
     private string connectionString;
@@ -42,6 +44,8 @@ public class CakeData : MonoBehaviour
     public Text previewFlavour;
     public Text previewFrosting;
     public Text previewPrice;
+
+    public GameObject pricePanel;
 
     void Start()
     {
@@ -128,7 +132,10 @@ public class CakeData : MonoBehaviour
             hideCakeNamePanel();
             empty = false;
             SaveCake(cName,numTier,cSize[0], cSize[1], cSize[2],cFrosting, cFlavour[0],cFlavour[1],cFlavour[2],cPrice, bytes1, bytes2, bytes3, bytes4);
-            order.GetComponent<Button>().interactable = true;
+            if (PlayerPrefs.GetInt("Connection") == 1)
+            {
+                order.GetComponent<Button>().interactable = true;
+            }       
             saved = true;
         }
     }
@@ -155,11 +162,12 @@ public class CakeData : MonoBehaviour
             cFlavour[i] = PlayerPrefs.GetString("Flavour" + PlayerPrefs.GetInt("FlavourTier" + j));
         }
         cFrosting = frostingName[PlayerPrefs.GetInt("Frosting")];
-        cPrice = 250000;
+        cPrice = PlayerPrefs.GetInt("CakePrice");
     }
 
     public void showPreviewData()
     {
+        pricePanel.SetActive(false);
         collectData();
         for (int i = 0; i < numTier; i++)
         {
@@ -173,12 +181,16 @@ public class CakeData : MonoBehaviour
             
         }
         previewFrosting.text=cFrosting;
-        previewPrice.text="Rp. "+
-            cPrice.ToString();
+        
+        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
+        
+        previewPrice.text = "Rp. " +
+            String.Format(elGR, "{0:0,0}", cPrice);
     }
 
     public void resetPreviewData()
     {
+        pricePanel.SetActive(false);
         previewSize.text = "";
         previewFlavour.text = "";
         previewPrice.text = "";

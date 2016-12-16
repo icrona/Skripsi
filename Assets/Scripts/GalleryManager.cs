@@ -5,6 +5,8 @@ using System.Data;
 using Mono.Data.Sqlite;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Globalization;
+
 public class GalleryManager : MonoBehaviour {
     private string filepath;
     private string connectionString;
@@ -37,6 +39,8 @@ public class GalleryManager : MonoBehaviour {
     private Texture2D []prefabTexture;
     private int cakeIndex;
     private List<CakeGallery> cakeData = new List<CakeGallery>();
+    public Button orderBtn;
+
     void Start()
     {
         galleryNum = 0;
@@ -60,6 +64,10 @@ public class GalleryManager : MonoBehaviour {
 
         loadCakeData();
         showGalleryGrid();
+        if (PlayerPrefs.GetInt("Connection") == 0)
+        {
+            orderBtn.interactable = false;
+        }
     }
     void loadCakeData(){
         cakeData.Clear();
@@ -160,7 +168,8 @@ public class GalleryManager : MonoBehaviour {
             }
             flavourText.text = cakeData[index].flavourText1 + " " + cakeData[index].flavourText2 + " " + cakeData[index].flavourText3;
             frostingText.text = cakeData[index].frosting;
-            priceText.text = "Rp. "+cakeData[index].price;
+            CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
+            priceText.text = "Rp. "+String.Format(elGR,"{0:0,0}",cakeData[index].price);
             timeStamp.text = cakeData[index].timeStamp;
             tex[0].LoadImage(cakeData[index].img1);
             tex[1].LoadImage(cakeData[index].img2);

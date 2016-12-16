@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Data;
 using Mono.Data.Sqlite;
+using System.Globalization;
+
 public class OrderManager : MonoBehaviour {
 
     public GameObject customerData;
@@ -117,6 +119,7 @@ public class OrderManager : MonoBehaviour {
             cakeDataByNumTier[i] = cakeData.transform.GetChild(i).gameObject;
         }
         cakeDataByNumTier[numTier - 1].SetActive(true);
+        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
         switch (numTier)
         {
             case 1:
@@ -124,7 +127,7 @@ public class OrderManager : MonoBehaviour {
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = flavour[0];
                 cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0].ToString()+" cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Rp. "+price.ToString();
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
                 break;
             case 2:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
@@ -133,7 +136,7 @@ public class OrderManager : MonoBehaviour {
                 cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " +size[0] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Rp. "+price.ToString();
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
                 break;
             case 3:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
@@ -144,7 +147,7 @@ public class OrderManager : MonoBehaviour {
                 cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Tier 3: " + size[2] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(7).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = "Rp. "+price.ToString();
+                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
                 break;
         }
         tex[0].LoadImage(image1);
@@ -156,9 +159,9 @@ public class OrderManager : MonoBehaviour {
         {
             cakeImage[i].GetComponent<Image>().sprite = Sprite.Create(tex[i], new Rect(0, 0, width, height), new Vector2(0f, 0f));
         }
-        if (PlayerPrefs.GetInt("UserData")==0)
+        if (PlayerPrefs.GetInt("UserData")==1)
         {
-            useMyData.interactable = false;
+            useMyData.interactable = true;
         }
     }
     public void goConfirm()
@@ -219,7 +222,25 @@ public class OrderManager : MonoBehaviour {
     public void order()
     {
         loading.SetActive(true);
-        StartCoroutine(sendOrder());
+        
+        StartCoroutine(Camera.main.GetComponent<CheckConnection>().checkInternetConnection((isConnected) => {
+            check(isConnected);
+        }));
+        
+    }
+    void check(bool on)
+    {
+        if (on)
+        {
+            loadingText.text = "Loading ....";
+            okay.SetActive(false);
+            StartCoroutine(sendOrder());
+        }
+        else
+        {
+            loadingText.text = "No Internet Connection";
+            okay.SetActive(true);
+        }
     }
     IEnumerator sendOrder()
     {
@@ -261,8 +282,6 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
-            print("Finished Ordering");
-            print(w.text);
             loadingText.text = "Finished Ordering";
             okay.SetActive(true);
         }

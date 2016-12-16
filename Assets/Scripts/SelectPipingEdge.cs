@@ -136,7 +136,9 @@ public class SelectPipingEdge : MonoBehaviour
             StartCoroutine(pipeAnimate(current,shape));
             showColorPanel();
         }
-        
+        PlayerPrefs.SetInt("PipeEdgeTier" + tier, x);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
+
     }
 
     void pickColor(Button b, int x)

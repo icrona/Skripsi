@@ -59,6 +59,8 @@ public class SelectSprinkleTop : MonoBehaviour
             selectedSprinkle = transform.GetChild(shape).GetChild(0).GetChild(1).GetChild(0).GetChild(current).gameObject;
             StartCoroutine(sprinkleAnimate(current));
         }
+        PlayerPrefs.SetInt("SprinkleTopTier" + tier, x);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
 
     void hideSprinkle()

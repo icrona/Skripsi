@@ -16,6 +16,14 @@ public class StartMenu : MonoBehaviour {
     {
         SceneManager.LoadScene("Gallery");
     }
+    public void toMyData()
+    {
+        SceneManager.LoadScene("MyData");
+    }
+    public void toSignature()
+    {
+        SceneManager.LoadScene("Signature");
+    }
     public void exitApps()
     {
         exitConfirm.SetActive(true);

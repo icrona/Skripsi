@@ -138,7 +138,7 @@ public class LoadDatabase : MonoBehaviour {
             StartCoroutine(getJSON());
             infoText.text = "Okay";
             infoText.transform.parent.gameObject.SetActive(false);
-
+            PlayerPrefs.SetInt("Connection", 1);
         }
         else
         {
@@ -146,6 +146,7 @@ public class LoadDatabase : MonoBehaviour {
             infoText.text = "No Internet Connection, You Can Not Open Signature Cake Menu And Order Cake, Click Okay To Continue Using This Apps";
             okay.gameObject.SetActive(true);
             signature.interactable = false;
+            PlayerPrefs.SetInt("Connection", 0);
         }
     }
     void getDefaultJSON()
@@ -249,7 +250,7 @@ public class LoadDatabase : MonoBehaviour {
         }
 
         if (serverVersion != localVersion)
-        {
+        {        
             File.WriteAllText(Application.persistentDataPath + "/json.txt", json);
         }
         setPlayerPrefs();

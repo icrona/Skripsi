@@ -129,6 +129,8 @@ public class SelectPipingBottom : MonoBehaviour
             StartCoroutine(pipeAnimate(current,shape));
             showColorPanel();
         }
+        PlayerPrefs.SetInt("PipeBottomTier" + tier, x);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
 
     void pickColor(Button b, int x)
