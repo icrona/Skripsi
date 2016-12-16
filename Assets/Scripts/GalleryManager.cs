@@ -90,9 +90,9 @@ public class GalleryManager : MonoBehaviour {
                 {
                     while (reader.Read())
                     {
-                        cakeData.Add(new CakeGallery(reader.GetInt32(0),reader.GetString(1), reader.GetInt32(2), reader.GetString(3), 
-                            reader.GetString(4), reader.GetString(5),reader.GetString(6), 
-                            reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(15), (byte[])reader["Image1"], (byte[])reader["Image2"],(byte[])reader["Image3"],(byte[])reader["Image4"]));
+                        cakeData.Add(new CakeGallery(reader.GetInt32(0),reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3), 
+                            reader.GetInt32(4), reader.GetInt32(5),reader.GetString(6), 
+                            reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetInt32(10), reader.GetString(15), (byte[])reader["Image1"], (byte[])reader["Image2"],(byte[])reader["Image3"],(byte[])reader["Image4"]));
                     }
                     dbConnection.Close();
                     reader.Close();
@@ -146,10 +146,21 @@ public class GalleryManager : MonoBehaviour {
         {
             selectedCakeID = cakeData[index].cakeID;
             nameText.text = cakeData[index].nameText;
-            sizeText.text = cakeData[index].sizeText1 + " " +cakeData[index].sizeText2 + " "+ cakeData[index].sizeText3;
+            if (cakeData[index].sizeText3 != 0)
+            {
+                sizeText.text = cakeData[index].sizeText1 + "cm " + cakeData[index].sizeText2 + "cm " + cakeData[index].sizeText3+" cm";
+            }
+            else if(cakeData[index].sizeText2 != 0)
+            {
+                sizeText.text = cakeData[index].sizeText1 + "cm " + cakeData[index].sizeText2 + "cm ";
+            }
+            else
+            {
+                sizeText.text = cakeData[index].sizeText1 + "cm ";
+            }
             flavourText.text = cakeData[index].flavourText1 + " " + cakeData[index].flavourText2 + " " + cakeData[index].flavourText3;
             frostingText.text = cakeData[index].frosting;
-            priceText.text = cakeData[index].price;
+            priceText.text = "Rp. "+cakeData[index].price;
             timeStamp.text = cakeData[index].timeStamp;
             tex[0].LoadImage(cakeData[index].img1);
             tex[1].LoadImage(cakeData[index].img2);

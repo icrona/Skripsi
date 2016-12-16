@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class StartMenu : MonoBehaviour {
     public GameObject loading;
     public GameObject exitConfirm;
+    public GameObject panelConnection;
     public void toMain()
     {
         loading.SetActive(true);
@@ -24,5 +27,10 @@ public class StartMenu : MonoBehaviour {
     public void exitNo()
     {
         exitConfirm.SetActive(false);
+    }
+    public void okay()
+    {
+        panelConnection.transform.GetChild(0).GetComponent<Text>().text = "No Internet Connection";
+        panelConnection.transform.GetChild(1).gameObject.SetActive(false);
     }
 }

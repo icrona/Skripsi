@@ -20,7 +20,7 @@ public class TierManagement : MonoBehaviour {
     private int index;
     private int tiers;
 
-
+    public GameObject cake;
     public void up()
     {
         downTier.interactable = true;
@@ -83,6 +83,26 @@ public class TierManagement : MonoBehaviour {
             upTier.interactable = false;
         }
         PlayerPrefs.SetInt("NumberOfTiers", tier+1);
+        PlayerPrefs.SetInt("FlavourTier" + tier + 1, 0);
+        for(int i = 0; i < 3; i++)
+        {
+            cake.transform.GetChild(i).gameObject.GetComponent<SelectSize>().validateSize();
+        }      
+        if (tier == 1)
+        {
+            PlayerPrefs.SetInt("SizeTier2", PlayerPrefs.GetInt("SizeTier1"));
+        }
+        else if (tier == 2)
+        {
+            if (PlayerPrefs.GetInt("SizeTier2") == -1)
+            {
+                PlayerPrefs.SetInt("SizeTier2", PlayerPrefs.GetInt("SizeTier1"));
+            }
+            PlayerPrefs.SetInt("SizeTier3", PlayerPrefs.GetInt("SizeTier2"));
+
+            
+        }
+        cake.GetComponent<CakePrice>().calculateCakePrice();
     }
     void Update()
     {

@@ -27,8 +27,10 @@ public class SelectPipingTop : MonoBehaviour {
     public int tier;
 
     private int shape;
-    void Start () {
 
+    private string pipeAvailability;
+    void Start () {
+        pipeAvailability = PlayerPrefs.GetString("PipeTop");
         color = new Vector4[17];
         color[0] = new Vector4(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
         color[1] = new Vector4(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
@@ -72,6 +74,12 @@ public class SelectPipingTop : MonoBehaviour {
             pipe[i] = pipes.transform.GetChild(i).GetComponent<Button>();
             Button b = pipe[i];
             AddListener(b, i);
+            char zero = '0';
+            if(i!=0 && pipeAvailability[i - 1] ==zero)
+            {
+                pipes.transform.GetChild(i).gameObject.SetActive(false);
+            }
+
         }
         tier = transform.GetSiblingIndex() + 1;
         material = new Material[3];

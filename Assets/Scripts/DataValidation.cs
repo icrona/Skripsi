@@ -48,7 +48,7 @@ public class DataValidation : MonoBehaviour {
         ColorUtility.TryParseHtmlString(redHexColor, out red);
         isTriggered = false;
         SelectedDate.now = SelectedDate.now.AddDays(3);
-        isValidDate = false;
+        isValidDate = true;
         isValidPhone = false;
         isValidName = false;
         isValidAddress = false;
@@ -69,7 +69,7 @@ public class DataValidation : MonoBehaviour {
     {
         if (isTriggered == true)
         {
-            custDelivDate.text = System.String.Format("{0:ddd,MMM d yyyy}", SelectedDate.date);
+            custDelivDate.text = System.String.Format("{0:yyyy-MM-dd}", SelectedDate.date);
         }
         if (isValidAddress && isValidDate && isValidEmail && isValidName && isValidPhone)
         {

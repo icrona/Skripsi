@@ -53,9 +53,10 @@ public class SelectFrosting : MonoBehaviour {
             frostingIcing();
             PlayerPrefs.SetInt("Frosting", 2);
         }
+
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
 	
-
     private void frostingButterCream()
     {
         for (int i = 0; i < transform.childCount; i++)

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu Test.CSharp.Plugins", "Menu Test.CSharp.Plugins.csproj", "{1AC7782E-B081-1568-13C4-E60399F208F2}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu Test.CSharp", "Menu Test.CSharp.csproj", "{4BE0E931-9DC4-1DB5-D06E-31D0777832CD}"
 EndProject
 Global
@@ -9,6 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AC7782E-B081-1568-13C4-E60399F208F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC7782E-B081-1568-13C4-E60399F208F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC7782E-B081-1568-13C4-E60399F208F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC7782E-B081-1568-13C4-E60399F208F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BE0E931-9DC4-1DB5-D06E-31D0777832CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BE0E931-9DC4-1DB5-D06E-31D0777832CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE0E931-9DC4-1DB5-D06E-31D0777832CD}.Release|Any CPU.ActiveCfg = Release|Any CPU

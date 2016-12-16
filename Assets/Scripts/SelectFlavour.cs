@@ -39,10 +39,11 @@ public class SelectFlavour : MonoBehaviour {
     public void selectFlavour(int value)
     {
         selectedFlavour = value;
+        PlayerPrefs.SetInt("FlavourTier" + tier, selectedFlavour);
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
     void Update()
-    {
-        PlayerPrefs.SetInt("FlavourTier" + tier, selectedFlavour);
+    {  
         if (cakeBasic.activeSelf)
         {
             for (int i = 0; i < transform.childCount; i++)

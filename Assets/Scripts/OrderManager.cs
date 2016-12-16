@@ -15,10 +15,10 @@ public class OrderManager : MonoBehaviour {
 
     private string nameCake;
     private int numTier;
-    private string[] size;
+    private int[] size;
     private string[] flavour;
     private string frosting;
-    private string price;
+    private int price;
 
     private byte[] image1;
     private byte[] image2;
@@ -52,9 +52,16 @@ public class OrderManager : MonoBehaviour {
     private bool saveData;
     private bool useData;
 
+    public GameObject loading;
+    public GameObject okay;
+    public Text loadingText;
+
+
+    private string urlOrder = "http://www.skripsweet.xyz/api/order";
+
     void Start()
     {
-        size = new string[3];
+        size = new int[3];
         flavour = new string[3];
         saveData = true;
         useData = false;
@@ -86,14 +93,14 @@ public class OrderManager : MonoBehaviour {
                     {
                         nameCake = reader.GetString(1);
                         numTier = reader.GetInt32(2);  
-                        size[0] = reader.GetString(3);
-                        size[1] = reader.GetString(4);
-                        size[2] = reader.GetString(5);
+                        size[0] = reader.GetInt32(3);
+                        size[1] = reader.GetInt32(4);
+                        size[2] = reader.GetInt32(5);
                         frosting = reader.GetString(6);
                         flavour[0] = reader.GetString(7);
                         flavour[1] = reader.GetString(8);
                         flavour[2] = reader.GetString(9);
-                        price = reader.GetString(10);
+                        price = reader.GetInt32(10);
                         image1 = (byte[])reader["Image1"];
                         image2 = (byte[])reader["Image2"];
                         image3 = (byte[])reader["Image3"];
@@ -115,29 +122,29 @@ public class OrderManager : MonoBehaviour {
             case 1:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = flavour[0];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0].ToString()+" cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = price;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Rp. "+price.ToString();
                 break;
             case 2:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = "Tier 1: " + flavour[0];
                 cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = "Tier 2: " + flavour[1];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " +size[0];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 2: " + size[1];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " +size[0] + " cm";
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = price;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Rp. "+price.ToString();
                 break;
             case 3:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = "Tier 1: " + flavour[0];
                 cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = "Tier 2: " + flavour[1];
                 cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 3: " + flavour[2];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 1: " + size[0];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = "Tier 2: " + size[1];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Tier 3: " + size[2];
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 1: " + size[0] + " cm";
+                cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Tier 3: " + size[2] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(7).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = price;
+                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = "Rp. "+price.ToString();
                 break;
         }
         tex[0].LoadImage(image1);
@@ -178,10 +185,23 @@ public class OrderManager : MonoBehaviour {
     public void saveOrNot()
     {
         saveData=!saveData;
+        Debug.Log(saveData);
     }
-    public void useOrNot()
+    public void isUseData(bool on)
     {
-        useData = !useData;
+        if (on) {
+            enterName.text = PlayerPrefs.GetString("CustomerName");
+            enterPhone.text = PlayerPrefs.GetString("CustomerPhone");
+            enterEmail.text = PlayerPrefs.GetString("CustomerEmail");
+            enterAddress.text = PlayerPrefs.GetString("CustomerAddress");
+        }
+        else
+        {
+            enterName.text = "";
+            enterPhone.text = "";
+            enterEmail.text = "";
+            enterAddress.text = "";
+        }
     }
     public void back()
     {
@@ -196,21 +216,60 @@ public class OrderManager : MonoBehaviour {
         }
     }
 
-    void Update()
+    public void order()
     {
-        if (useData)
+        loading.SetActive(true);
+        StartCoroutine(sendOrder());
+    }
+    IEnumerator sendOrder()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("name", custNameText.text);
+        form.AddField("phone", custPhoneText.text);
+        form.AddField("email", custEmailText.text);
+        form.AddField("date", custDateText.text);
+        form.AddField("address", custAddressText.text);
+        form.AddField("notes", custNotesText.text);
+        form.AddField("cake_name", nameCake);
+        form.AddField("cake_tier", numTier);
+
+        form.AddField("cake_size", size[0]);
+        form.AddField("cake_size1", size[1]);
+        form.AddField("cake_size2", size[2]);
+
+        form.AddField("cake_flavour", flavour[0]);
+        form.AddField("cake_flavour1", flavour[1]);
+        form.AddField("cake_flavour2", flavour[2]);
+
+        form.AddField("cake_frosting", frosting);
+
+        form.AddBinaryData("image1", image1,"screenshot1.png","image/png");
+        form.AddBinaryData("image2", image2, "screenshot2.png", "image/png");
+        form.AddBinaryData("image3", image3, "screenshot3.png", "image/png");
+        form.AddBinaryData("image4", image4, "screenshot4.png", "image/png");
+
+
+        form.AddField("cake_price", price);
+        form.AddField("status", "Waiting Confirmation");
+        form.AddField("order_from", "Apps");
+
+        WWW w = new WWW(urlOrder, form);
+        yield return w;
+        if (!string.IsNullOrEmpty(w.error))
         {
-            enterName.text = PlayerPrefs.GetString("CustomerName");
-            enterPhone.text = PlayerPrefs.GetString("CustomerPhone");
-            enterEmail.text = PlayerPrefs.GetString("CustomerEmail");
-            enterAddress.text = PlayerPrefs.GetString("CustomerAddress");
+            print(w.error);
         }
         else
         {
-            enterName.text = "";
-            enterPhone.text = "";
-            enterEmail.text = "";
-            enterAddress.text = "";
+            print("Finished Ordering");
+            print(w.text);
+            loadingText.text = "Finished Ordering";
+            okay.SetActive(true);
         }
+
+    }
+    public void close()
+    {
+        loading.SetActive(false);
     }
 }

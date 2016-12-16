@@ -8,7 +8,12 @@ public class ValidateSizeTier1 : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         int upperSize = PlayerPrefs.GetInt("SizeTier2");
-        if (PlayerPrefs.GetInt("NumberOfTiers") == 0)
+        if (upperSize == -1)
+        {
+            PlayerPrefs.SetInt("SizeTier2", PlayerPrefs.GetInt("SizeTier1"));
+        }
+        upperSize= PlayerPrefs.GetInt("SizeTier2");
+        if (PlayerPrefs.GetInt("NumberOfTiers") == 1)
         {
             for(int i = 0; i < 3; i++)
             {

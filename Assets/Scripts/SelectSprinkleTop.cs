@@ -24,6 +24,10 @@ public class SelectSprinkleTop : MonoBehaviour
             sprinkle[i] = sprinkles.transform.GetChild(i).GetComponent<Button>();
             Button b = sprinkle[i];
             AddListener(b, i);
+            if (i != 0 && PlayerPrefs.GetInt("SprinkleAvailability" + (i - 1)) == 0)
+            {
+                sprinkles.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
         tier = transform.GetSiblingIndex() + 1;
     }

@@ -17,10 +17,10 @@ public class CakeData : MonoBehaviour
 
     private string cName;
     private int numTier;
-    private string[] cSize;
+    private int[] cSize;
     private string cFrosting;
     private string[] cFlavour;
-    private string cPrice;
+    private int cPrice;
 
     private string[] frostingName;
 
@@ -45,7 +45,7 @@ public class CakeData : MonoBehaviour
 
     void Start()
     {
-        cSize = new string[3];
+        cSize = new int[3];
         cFlavour = new string[3];
         frostingName = new string[3];
         frostingName[0] = "Butter Cream";
@@ -63,7 +63,7 @@ public class CakeData : MonoBehaviour
         connectionString = "URI=file:" + filepath;
         saved = false;
     }
-    private void SaveCake(string name, int numTier, string size1, string size2, string size3, string frosting,string flavour1, string flavour2, string flavour3, string price, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
+    private void SaveCake(string name, int numTier, int size1, int size2, int size3, string frosting,string flavour1, string flavour2, string flavour3, int price, byte[] bytes1, byte[] bytes2, byte[] bytes3, byte[] bytes4)
     {
         using (IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
@@ -146,16 +146,16 @@ public class CakeData : MonoBehaviour
         numTier = PlayerPrefs.GetInt("NumberOfTiers");
         for(int i = 0; i < 3; i++)
         {
-            cSize[i] = "";
+            cSize[i] = 0;
             cFlavour[i] = "";
         }
         for(int i = 0,j=1; i < numTier; i++,j++)
         {
-            cSize[i] = PlayerPrefs.GetInt("Size"+PlayerPrefs.GetInt("SizeTier" + j)) + " cm";
+            cSize[i] = PlayerPrefs.GetInt("Size"+PlayerPrefs.GetInt("SizeTier" + j));
             cFlavour[i] = PlayerPrefs.GetString("Flavour" + PlayerPrefs.GetInt("FlavourTier" + j));
         }
         cFrosting = frostingName[PlayerPrefs.GetInt("Frosting")];
-        cPrice = "Rp 250.000";
+        cPrice = 250000;
     }
 
     public void showPreviewData()
@@ -168,12 +168,13 @@ public class CakeData : MonoBehaviour
                 previewSize.text += ", ";
                 previewFlavour.text += ", ";
             }
-            previewSize.text += cSize[i];          
+            previewSize.text += cSize[i]+"cm";          
             previewFlavour.text += cFlavour[i];
             
         }
         previewFrosting.text=cFrosting;
-        previewPrice.text=cPrice;
+        previewPrice.text="Rp. "+
+            cPrice.ToString();
     }
 
     public void resetPreviewData()

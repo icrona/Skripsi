@@ -12,8 +12,11 @@ public class AddCandle : MonoBehaviour {
     public GameObject candles;
     private int numOfCandle;
 
+    private string candleAvailability;
     void Start()
     {
+        candleAvailability = PlayerPrefs.GetString("Candle");
+        candleAvailability = candleAvailability[10]+ candleAvailability.Substring(0, 10);
         numOfCandle = candles.transform.childCount;
         candle = new Button[numOfCandle];
         candlePrefab = new GameObject[numOfCandle];
@@ -23,6 +26,11 @@ public class AddCandle : MonoBehaviour {
             candle[i] = candles.transform.GetChild(i).GetComponent<Button>();
             Button b = candle[i];
             AddListener(b, i);
+            char zero = '0';
+            if (candleAvailability[i]==zero)
+            {
+                candles.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 

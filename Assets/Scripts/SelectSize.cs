@@ -114,11 +114,21 @@ public class SelectSize : MonoBehaviour {
             scale = (value[size] / value[defaultSize]);
             availableShape[i].transform.GetChild(0).localScale = new Vector3(scale*initialScaleX[i],scale*initialScaleY[i],scale*initialScaleZ[i]);
         }
-    }
-    void Update()
-    {
         PlayerPrefs.SetInt("SizeTier" + tier, selectedSize);
-
+        transform.parent.GetComponent<CakePrice>().calculateCakePrice();
+    }
+    public void selectSize1(int size)
+    {
+        selectedSize = size;
+        for (int i = 0; i < numOfShape; i++)
+        {
+            scale = (value[size] / value[defaultSize]);
+            availableShape[i].transform.GetChild(0).localScale = new Vector3(scale * initialScaleX[i], scale * initialScaleY[i], scale * initialScaleZ[i]);
+        }
+        PlayerPrefs.SetInt("SizeTier" + tier, selectedSize);
+    }
+    public void validateSize()
+    {
         if (tier == 3 && PlayerPrefs.GetInt("IsThere3Tiers") < 1)
         {
             if (PlayerPrefs.GetInt("SizeTier3")>(PlayerPrefs.GetInt("SizeTier1")))
@@ -137,18 +147,18 @@ public class SelectSize : MonoBehaviour {
         {
             PlayerPrefs.SetInt("IsThere2Tiers", 1);
             adjustSizeTier2();          
-        }     
+        }
     }
     void adjustSizeTier2()
     {
-        selectSize(PlayerPrefs.GetInt("SizeTier1"));
+        selectSize1(PlayerPrefs.GetInt("SizeTier1"));
         size.value = selectedSize;
     }
 
     void adjustSizeTier3()
     {
         adjustSizeTier2();
-        selectSize(PlayerPrefs.GetInt("SizeTier2"));
+        selectSize1(PlayerPrefs.GetInt("SizeTier2"));
         size.value = selectedSize;
     }
 }

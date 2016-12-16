@@ -11,8 +11,11 @@ public class AddFigure : MonoBehaviour {
     public Button[] figure;
     public GameObject figures;
     private int numOffigure;
+
+    private string figureAvailability;
     void Start()
     {
+        figureAvailability = PlayerPrefs.GetString("Figure");
         numOffigure = figures.transform.childCount;
         figure = new Button[numOffigure];
         figurePrefab = new GameObject[numOffigure];
@@ -22,6 +25,11 @@ public class AddFigure : MonoBehaviour {
             figure[i] = figures.transform.GetChild(i).GetComponent<Button>();
             Button b = figure[i];
             AddListener(b, i);
+            char zero = '0';
+            if (figureAvailability[i] == zero)
+            {
+                figures.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 
