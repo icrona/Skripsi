@@ -27,6 +27,7 @@ public class OrderManager : MonoBehaviour {
     private byte[] image3;
     private byte[] image4;
     public GameObject imagePanel;
+    public GameObject signatureImagePanel;
     public GameObject []cakeImage;
 
     public Text custNameText;
@@ -45,6 +46,7 @@ public class OrderManager : MonoBehaviour {
     public InputField enterAddress;
     public InputField enterNotes;
 
+    public Text menuLabel;
 
     private Texture2D[] tex;
     int width;
@@ -60,18 +62,59 @@ public class OrderManager : MonoBehaviour {
 
 
     private string urlOrder = "http://www.skripsweet.xyz/api/order";
+    private string imageURL = "http://www.skripsweet.xyz/images";
 
+    private int selectedCakeID;
+
+    public GameObject signaturePanel;
+    CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
     void Start()
     {
         size = new int[3];
         flavour = new string[3];
         saveData = true;
         useData = false;
-        int selectedCakeID = PlayerPrefs.GetInt("selectedCakeID");
+        selectedCakeID = PlayerPrefs.GetInt("selectedCakeID");
+        if (PlayerPrefs.GetString("OrderFrom") == "Apps")
+        {
+            orderFromApps();
+        }
+        else
+        {
+            orderFromSignature();
+        }
+        
+        if (PlayerPrefs.GetInt("UserData")==1)
+        {
+            useMyData.interactable = true;
+        }
+    }
+    void orderFromSignature()
+    {
+        signaturePanel.SetActive(true);
+        signaturePanel.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString("SignatureName");
+        signaturePanel.transform.GetChild(1).GetComponent<Text>().text = PlayerPrefs.GetInt("SignatureSize") + " cm";
+        signaturePanel.transform.GetChild(2).GetComponent<Text>().text = "Rp. " + String.Format(elGR, "{0:0,0}", PlayerPrefs.GetInt("SignaturePrice"));
+        signatureImagePanel.SetActive(true);
+        StartCoroutine(loadImage(PlayerPrefs.GetString("SignatureImage")));
+    }
+    IEnumerator loadImage(string image)
+    {
+        tex = new Texture2D[1];
+        tex[0] = new Texture2D(400, 400, TextureFormat.DXT1, false);
+        string url = imageURL + '/' + image;
+        WWW www = new WWW(url);
+        yield return www;
+        www.LoadImageIntoTexture(tex[0]);
+        signatureImagePanel.transform.GetChild(0).GetComponent<Image>().sprite = Sprite.Create(tex[0], new Rect(0, 0, 400, 400), new Vector2(0.5f, 0.5f));
+    }
+    private void orderFromApps()
+    {       
         width = 5 * Screen.width / 7;
         height = Screen.height / 2;
         cakeImage = new GameObject[imagePanel.transform.childCount];
         tex = new Texture2D[imagePanel.transform.childCount];
+        imagePanel.SetActive(true);
 
         for (int i = 0; i < 4; i++)
         {
@@ -94,7 +137,7 @@ public class OrderManager : MonoBehaviour {
                     while (reader.Read())
                     {
                         nameCake = reader.GetString(1);
-                        numTier = reader.GetInt32(2);  
+                        numTier = reader.GetInt32(2);
                         size[0] = reader.GetInt32(3);
                         size[1] = reader.GetInt32(4);
                         size[2] = reader.GetInt32(5);
@@ -114,29 +157,29 @@ public class OrderManager : MonoBehaviour {
             }
         }
         cakeDataByNumTier = new GameObject[3];
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             cakeDataByNumTier[i] = cakeData.transform.GetChild(i).gameObject;
         }
         cakeDataByNumTier[numTier - 1].SetActive(true);
-        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
+        
         switch (numTier)
         {
             case 1:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = flavour[0];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0].ToString()+" cm";
+                cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = size[0].ToString() + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
+                cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Rp. " + String.Format(elGR, "{0:0,0}", price);
                 break;
             case 2:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
                 cakeDataByNumTier[numTier - 1].transform.GetChild(1).GetComponent<Text>().text = "Tier 1: " + flavour[0];
                 cakeDataByNumTier[numTier - 1].transform.GetChild(2).GetComponent<Text>().text = "Tier 2: " + flavour[1];
-                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " +size[0] + " cm";
+                cakeDataByNumTier[numTier - 1].transform.GetChild(3).GetComponent<Text>().text = "Tier 1: " + size[0] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(4).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
+                cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Rp. " + String.Format(elGR, "{0:0,0}", price);
                 break;
             case 3:
                 cakeDataByNumTier[numTier - 1].transform.GetChild(0).GetComponent<Text>().text = nameCake;
@@ -147,7 +190,7 @@ public class OrderManager : MonoBehaviour {
                 cakeDataByNumTier[numTier - 1].transform.GetChild(5).GetComponent<Text>().text = "Tier 2: " + size[1] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(6).GetComponent<Text>().text = "Tier 3: " + size[2] + " cm";
                 cakeDataByNumTier[numTier - 1].transform.GetChild(7).GetComponent<Text>().text = frosting;
-                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = "Rp. "+ String.Format(elGR, "{0:0,0}", price);
+                cakeDataByNumTier[numTier - 1].transform.GetChild(8).GetComponent<Text>().text = "Rp. " + String.Format(elGR, "{0:0,0}", price);
                 break;
         }
         tex[0].LoadImage(image1);
@@ -159,13 +202,10 @@ public class OrderManager : MonoBehaviour {
         {
             cakeImage[i].GetComponent<Image>().sprite = Sprite.Create(tex[i], new Rect(0, 0, width, height), new Vector2(0f, 0f));
         }
-        if (PlayerPrefs.GetInt("UserData")==1)
-        {
-            useMyData.interactable = true;
-        }
     }
     public void goConfirm()
     {
+        menuLabel.text = "Confirmation";
         customerData.SetActive(false);
         confirmation.SetActive(true);
         if(saveData == true)
@@ -214,6 +254,7 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            menuLabel.text = "Customer Data";
             confirmation.SetActive(false);
             customerData.SetActive(true);
         }
@@ -234,13 +275,44 @@ public class OrderManager : MonoBehaviour {
         {
             loadingText.text = "Loading ....";
             okay.SetActive(false);
-            StartCoroutine(sendOrder());
+            if (PlayerPrefs.GetString("OrderFrom") == "Apps")
+            {
+                StartCoroutine(sendOrder());
+            }
+            else
+            {
+                StartCoroutine(sendOrderSignature(selectedCakeID));
+            }
+            
         }
         else
         {
             loadingText.text = "No Internet Connection";
             okay.SetActive(true);
         }
+    }
+    IEnumerator sendOrderSignature(int id)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("name", custNameText.text);
+        form.AddField("phone", custPhoneText.text);
+        form.AddField("email", custEmailText.text);
+        form.AddField("date", custDateText.text);
+        form.AddField("address", custAddressText.text);
+        form.AddField("notes", custNotesText.text);
+       
+        WWW w = new WWW(urlOrder+"Signature/"+id, form);
+        yield return w;
+        if (!string.IsNullOrEmpty(w.error))
+        {
+            print(w.error);
+        }
+        else
+        {
+            loadingText.text = "Finished Ordering";
+            okay.SetActive(true);
+        }
+
     }
     IEnumerator sendOrder()
     {
@@ -268,7 +340,6 @@ public class OrderManager : MonoBehaviour {
         form.AddBinaryData("image2", image2, "screenshot2.png", "image/png");
         form.AddBinaryData("image3", image3, "screenshot3.png", "image/png");
         form.AddBinaryData("image4", image4, "screenshot4.png", "image/png");
-
 
         form.AddField("cake_price", price);
         form.AddField("status", "Waiting Confirmation");

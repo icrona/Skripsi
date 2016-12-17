@@ -135,6 +135,8 @@
     <Compile Include="Assets\Scripts\SelectSize.cs" />
     <Compile Include="Assets\Scripts\SelectSprinkleSide.cs" />
     <Compile Include="Assets\Scripts\SelectSprinkleTop.cs" />
+    <Compile Include="Assets\Scripts\SignatureConfirmation.cs" />
+    <Compile Include="Assets\Scripts\SignatureManager.cs" />
     <Compile Include="Assets\Scripts\SprinklePipingManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\TextEdit.cs" />

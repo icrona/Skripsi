@@ -106,6 +106,7 @@ public class CakeData : MonoBehaviour
             }
         }
         PlayerPrefs.SetInt("selectedCakeID", selectedCakeID);
+        PlayerPrefs.SetString("OrderFrom", "Apps");
     }
 
     public void showCakeNamePanel()

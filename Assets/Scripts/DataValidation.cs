@@ -48,11 +48,13 @@ public class DataValidation : MonoBehaviour {
         ColorUtility.TryParseHtmlString(redHexColor, out red);
         isTriggered = false;
         SelectedDate.now = SelectedDate.now.AddDays(PlayerPrefs.GetInt("MinDays")-1);
+        
         isValidDate = false;
         isValidPhone = false;
         isValidName = false;
         isValidAddress = false;
         isValidEmail = false;
+        
     }
     void PickDate()
     {
@@ -71,6 +73,7 @@ public class DataValidation : MonoBehaviour {
         {
             custDelivDate.text = System.String.Format("{0:yyyy-MM-dd}", SelectedDate.date);
         }
+        
         if (isValidAddress && isValidDate && isValidEmail && isValidName && isValidPhone)
         {
             order.interactable = true;

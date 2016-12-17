@@ -266,5 +266,6 @@ public class GalleryManager : MonoBehaviour {
     public void getCakeId()
     {
         PlayerPrefs.SetInt("selectedCakeID", selectedCakeID);
+        PlayerPrefs.SetString("OrderFrom", "Apps");
     }
 }
