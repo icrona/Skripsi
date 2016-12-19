@@ -44,6 +44,7 @@ public class MenuManager : MonoBehaviour {
             transform.GetComponent<CakeData>().resetPreviewData();
         }
         index--;
+        transform.GetComponent<ButtonSound>().playSound();
         if (index == 0)
         {
             buttonBack.SetActive(false);
@@ -58,6 +59,14 @@ public class MenuManager : MonoBehaviour {
             updateCompletionText(index);
         }
         activeCurrMenu();
+        if ((index == 1 && PlayerPrefs.GetInt("Frosting") == -1) || index == 5)
+        {
+            buttonNext.SetActive(false);
+        }
+        else
+        {
+            buttonNext.SetActive(true);
+        }
     }
     public void nextBtn()
     { 
@@ -73,6 +82,16 @@ public class MenuManager : MonoBehaviour {
         menuListLabel();
         updateCompletionText(index);
         activeCurrMenu();
+        transform.GetComponent<ButtonSound>().playSound();
+        if((index==1 && PlayerPrefs.GetInt("Frosting") == -1)||index==5)
+        {
+            buttonNext.SetActive(false);
+        }
+        else
+        {
+            buttonNext.SetActive(true);
+        }
+        
     }
     public void menuListLabel()
     {
@@ -89,19 +108,6 @@ public class MenuManager : MonoBehaviour {
         {
             progressPercent -= 60 * Time.deltaTime;
             progressBar.fillAmount = progressPercent / 100f;
-        }
-        
-        if(index==1 && PlayerPrefs.GetInt("Frosting") == -1)
-        {
-            buttonNext.SetActive(false);
-        }
-        else
-        {
-            buttonNext.SetActive(true);
-        }
-        if (index == 5)
-        {
-            buttonNext.SetActive(false);
         }
     }
     public void updateCompletionText(int index)

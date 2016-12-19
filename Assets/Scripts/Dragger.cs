@@ -35,7 +35,7 @@ public class Dragger : MonoBehaviour {
         {
             Destroy(gameObject);
             delete = false;
-            deleteDecoration.transform.localScale = new Vector3(1f, 1f, 1f);
+            deleteDecoration.transform.GetComponent<ChangeTrashCan>().openTrash(false);
             transform.parent.parent.parent.parent.GetComponent<CakePrice>().substractCakePrice(gameObject.name);
         }
     }
@@ -72,7 +72,7 @@ public class Dragger : MonoBehaviour {
         if (collision.gameObject.name == "DeleteDecoration")
         {
             deleteDecoration = collision.gameObject;
-            collision.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            collision.transform.GetComponent<ChangeTrashCan>().openTrash(true);
             delete = true;
         }
     }
@@ -81,7 +81,7 @@ public class Dragger : MonoBehaviour {
     {
         if (collision.gameObject.name == "DeleteDecoration")
         {
-            collision.transform.localScale = new Vector3(1f, 1f, 1f);
+            collision.transform.GetComponent<ChangeTrashCan>().openTrash(false);
             delete = false;
         }
     }

@@ -10,6 +10,7 @@ public class SelectFrosting : MonoBehaviour {
     public GameObject colorPanel;
     private int selectedFrosting;
     public Texture2D[] frostingTextures;
+    public Button next;
     // Use this for initialization
     void Start () {
         colorPanel.SetActive(false);
@@ -53,7 +54,7 @@ public class SelectFrosting : MonoBehaviour {
             frostingIcing();
             PlayerPrefs.SetInt("Frosting", 2);
         }
-
+        next.gameObject.SetActive(true);
         transform.parent.GetComponent<CakePrice>().calculateCakePrice();
     }
 	

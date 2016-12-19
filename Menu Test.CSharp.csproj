@@ -99,12 +99,14 @@
     <Compile Include="Assets\Scripts\AddCandle.cs" />
     <Compile Include="Assets\Scripts\AddFigure.cs" />
     <Compile Include="Assets\Scripts\AddText.cs" />
+    <Compile Include="Assets\Scripts\ButtonSound.cs" />
     <Compile Include="Assets\Scripts\CakeColor.cs" />
     <Compile Include="Assets\Scripts\CakeData.cs" />
     <Compile Include="Assets\Scripts\CakeGallery.cs" />
     <Compile Include="Assets\Scripts\CakePrice.cs" />
     <Compile Include="Assets\Scripts\CakeRotate.cs" />
     <Compile Include="Assets\Scripts\CakeZoom.cs" />
+    <Compile Include="Assets\Scripts\ChangeTrashCan.cs" />
     <Compile Include="Assets\Scripts\CheckConnection.cs" />
     <Compile Include="Assets\Scripts\DataValidation.cs" />
     <Compile Include="Assets\Scripts\DecorationManager.cs" />
@@ -141,7 +143,6 @@
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\TextEdit.cs" />
     <Compile Include="Assets\Scripts\TextSize.cs" />
-    <Compile Include="Assets\Scripts\ThankYou.cs" />
     <Compile Include="Assets\Scripts\TierManagement.cs" />
     <Compile Include="Assets\Scripts\Touchable.cs" />
     <Compile Include="Assets\Scripts\TurnZoom.cs" />

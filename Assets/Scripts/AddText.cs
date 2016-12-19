@@ -29,7 +29,7 @@ public class AddText : MonoBehaviour
                 index = i;
             }
         }
-        text = Instantiate(textPrefab, new Vector3(0f, -10f, 180f), Quaternion.identity) as GameObject;
+        text = Instantiate(textPrefab, new Vector3(0f, -18f, 180f), Quaternion.identity) as GameObject;
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         text.transform.parent = transform.GetChild(index).GetChild(2);
         text.transform.localRotation = Quaternion.Euler(90, 180, 0);

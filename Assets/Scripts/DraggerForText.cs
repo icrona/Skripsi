@@ -78,7 +78,7 @@ public class DraggerForText : MonoBehaviour
         if (collision.gameObject.name == "DeleteText")
         {
             deleteText = collision.gameObject;
-            collision.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            collision.transform.GetComponent<ChangeTrashCan>().openTrash(true);
             delete = true;
         }
     }
@@ -87,7 +87,7 @@ public class DraggerForText : MonoBehaviour
     {
         if (collision.gameObject.name == "DeleteText")
         {
-            collision.transform.localScale = new Vector3(1f, 1f, 1f);
+            collision.transform.GetComponent<ChangeTrashCan>().openTrash(false);
             delete = false;
         }
     }
@@ -99,7 +99,7 @@ public class DraggerForText : MonoBehaviour
         {
             Destroy(gameObject);
             delete = false;
-            deleteText.transform.localScale = new Vector3(1f, 1f, 1f);
+            deleteText.transform.GetComponent<ChangeTrashCan>().openTrash(false);
             deleteText.transform.parent.GetChild(tier).GetChild(0).GetChild(0).gameObject.SetActive(false);
             deleteText.transform.parent.GetChild(tier).GetChild(0).GetChild(2).GetComponent<InputField>().text = "";
         }
