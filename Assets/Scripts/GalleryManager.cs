@@ -200,7 +200,7 @@ public class GalleryManager : MonoBehaviour {
         index--;
         loadCakeData();
         showCakeData();
-        backToStart(); 
+        back(); 
     }
     public void toggleLeft()
     {
@@ -228,18 +228,11 @@ public class GalleryManager : MonoBehaviour {
     {
         galleryIndex.text = (index + 1).ToString() + "/" + galleryNum.ToString();
     }
-    public void backToStart()
+    public void back()
     {
-        if (cakeDetails==false)
-        {
-            SceneManager.LoadScene("StartMenu");
-        }
-        else
-        {
             gridCanvas.SetActive(true);
             galleryCanvas.SetActive(false);
             cakeDetails = false;
-        }
        
     }
     public void leftCake()
@@ -267,5 +260,9 @@ public class GalleryManager : MonoBehaviour {
     {
         PlayerPrefs.SetInt("selectedCakeID", selectedCakeID);
         PlayerPrefs.SetString("OrderFrom", "Apps");
+    }
+    public void toStart()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
 }

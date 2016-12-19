@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
-
+using UnityEngine.SceneManagement;
 
 public class MyDataValidation : MonoBehaviour {
 
@@ -21,6 +21,8 @@ public class MyDataValidation : MonoBehaviour {
     private bool isValidPhone;
     private bool isValidEmail;
     private bool isValidAddress;
+
+    public GameObject panel;
 
     void Start()
     {
@@ -127,6 +129,16 @@ public class MyDataValidation : MonoBehaviour {
         PlayerPrefs.SetString("CustomerEmail", custEmail.text);
         PlayerPrefs.SetString("CustomerAddress", custAddress.text);
         PlayerPrefs.SetInt("UserData", 1);
+        panel.SetActive(true);
+    }
+
+    public void backStart()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+    public void ok()
+    {
+        panel.SetActive(false);
     }
 }
 

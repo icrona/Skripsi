@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\LoadDatabase.cs" />
     <Compile Include="Assets\Scripts\LockDecorationAndText.cs" />
     <Compile Include="Assets\Scripts\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\MusicController.cs" />
     <Compile Include="Assets\Scripts\MyDataValidation.cs" />
     <Compile Include="Assets\Scripts\OrderManager.cs" />
     <Compile Include="Assets\Scripts\PipingPosition.cs" />

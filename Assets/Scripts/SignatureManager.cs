@@ -35,6 +35,8 @@ public class SignatureManager : MonoBehaviour
     public GameObject[] detailContainer;
     public GameObject cakeContents;
     CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
+
+    private Text[] cakeIndex;
     void Start()
     {
         cakeCount = new int[3];
@@ -51,6 +53,11 @@ public class SignatureManager : MonoBehaviour
         }
         index = 0;
         indexDetail = new int[3];
+        cakeIndex = new Text[3];
+        for(int i = 0; i < 3; i++)
+        {
+            cakeIndex[i]=detailPanel.transform.GetChild(i).GetChild(1).GetChild(2).GetComponent<Text>();
+        }
         StartCoroutine(GetJSON());
     }
     IEnumerator GetJSON() {
@@ -67,6 +74,10 @@ public class SignatureManager : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             cakeCount[i] = signatureCake[i].Count;
+        }
+        for(int i = 0; i < 3; i++)
+        {
+            cakeIndex[i].text = "1/" + cakeCount[i];
         }
         int max = cakeCount.Max();
         cakeId = new int[3, max];
@@ -169,7 +180,9 @@ public class SignatureManager : MonoBehaviour
             detailContainer[i].transform.GetChild(x).gameObject.SetActive(false);
         }
         detailContainer[i].transform.GetChild(indexDetail).gameObject.SetActive(true);
+        cakeIndex[i].text = (indexDetail + 1) + "/" + cakeCount[i];
     }
+    
     void backToGrid()
     {
         gridPanel.SetActive(true);
@@ -181,7 +194,6 @@ public class SignatureManager : MonoBehaviour
         thumbnail.GetComponent<Image>().sprite = cakes[i, j];
         thumbnail.transform.SetParent(gridContainer[i].transform, false);
         thumbnail.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => showCakeDetail(i,j));
-
     }
     void generateDetails(int i,int j)
     {
@@ -209,6 +221,7 @@ public class SignatureManager : MonoBehaviour
             {
                 detailContainer[i].transform.GetChild(x).gameObject.SetActive(true);
                 indexDetail[i] = x;
+                cakeIndex[i].text = (x + 1) + "/" + cakeCount[i];
             }
         }             
     }

@@ -206,6 +206,7 @@ public class OrderManager : MonoBehaviour {
     public void goConfirm()
     {
         menuLabel.text = "Confirmation";
+        menuLabel.fontSize = 21;
         customerData.SetActive(false);
         confirmation.SetActive(true);
         if(saveData == true)
@@ -248,16 +249,15 @@ public class OrderManager : MonoBehaviour {
     }
     public void back()
     {
-        if (customerData.activeSelf)
-        {
-            SceneManager.LoadScene("StartMenu");
-        }
-        else
-        {
-            menuLabel.text = "Customer Data";
-            confirmation.SetActive(false);
-            customerData.SetActive(true);
-        }
+        menuLabel.text = "Customer Data";
+        menuLabel.fontSize = 24;
+        confirmation.SetActive(false);
+        customerData.SetActive(true);
+    }
+
+    public void toStart()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
 
     public void order()

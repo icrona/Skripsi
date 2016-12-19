@@ -72,6 +72,8 @@ public class LoadDatabase : MonoBehaviour {
             Debug.Log("First Time");
             writeFirstJSON();
             PlayerPrefs.SetInt("UserData", 0);
+            PlayerPrefs.SetInt("Sound", 1);
+            PlayerPrefs.SetInt("Music",1);
             using (IDbConnection dbConnection = new SqliteConnection(connectionString))
             {
                 dbConnection.Open();

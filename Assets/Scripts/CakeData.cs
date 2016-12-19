@@ -229,7 +229,6 @@ public class CakeData : MonoBehaviour
         {
             theCake[i].transform.localRotation = Quaternion.Euler(-45, 0, 0);
         }
-
         yield return new WaitForEndOfFrame();
 
         tex = new Texture2D(width, height, TextureFormat.RGB24, false);
@@ -244,7 +243,6 @@ public class CakeData : MonoBehaviour
         {
             theCake[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-
         yield return new WaitForEndOfFrame();
 
         tex = new Texture2D(width, height, TextureFormat.RGB24, false);

@@ -54,7 +54,8 @@ public class DataValidation : MonoBehaviour {
         isValidName = false;
         isValidAddress = false;
         isValidEmail = false;
-        
+        custDelivDate.placeholder.GetComponent<Text>().text = "Minimum " + PlayerPrefs.GetInt("MinDays") + " day(s) from today";
+
     }
     void PickDate()
     {
