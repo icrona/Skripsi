@@ -126,6 +126,7 @@ public class SelectPipingTop : MonoBehaviour {
             }
         }
         hidePipe(shape);
+        
         b.interactable = false;
         if (x != 0)
         {
@@ -148,7 +149,7 @@ public class SelectPipingTop : MonoBehaviour {
         {
             colorButton[i].interactable = true;
         }
-
+        Camera.main.GetComponent<ButtonSound>().playSound();
         material[0].color = color[x];
         index = x;
         b.interactable = false;
@@ -173,6 +174,7 @@ public class SelectPipingTop : MonoBehaviour {
         for (int i = 0; i < transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
             transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(true);
+            Camera.main.GetComponent<ButtonSound>().playPiping();
             yield return new WaitForSeconds(0.02f);
         }
     }

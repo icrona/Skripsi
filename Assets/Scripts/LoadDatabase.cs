@@ -117,6 +117,22 @@ public class LoadDatabase : MonoBehaviour {
             }
         }
     }
+    void updateVersion()
+    {
+        filepath = Application.persistentDataPath + "/CakeDB.sqlite";
+        connectionString = "URI=file:" + filepath;
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            dbConnection.Open();
+            using (IDbCommand dbCmd = dbConnection.CreateCommand())
+            {
+                string getVersion = String.Format("UPDATE Version Set Version=\"{0}\" WHERE ID=1",serverVersion);
+                dbCmd.CommandText = getVersion;
+                dbCmd.ExecuteReader();
+                dbConnection.Close();
+            }
+        }
+    }
 
     IEnumerator getLogo()
     {
@@ -177,85 +193,90 @@ public class LoadDatabase : MonoBehaviour {
     {
         config = JSON.Parse(json);
         serverVersion = config["version"];
-        min_days = config["min_days"].AsInt;
-        flavourCount = config["flavour"].Count;
-        flavourName = new string[flavourCount];
-        flavourPrice = new int[flavourCount];
-        for(int i = 0; i < flavourCount; i++)
-        {
-            flavourName[i] = config["flavour"][i]["name"];
-            flavourPrice[i] = config["flavour"][i]["price"].AsInt;
-        }
-
-        sizeCount = config["size"].Count;
-        sizeSize = new int[sizeCount];
-        sizeRate = new float[sizeCount];
-        for (int i = 0; i < sizeCount; i++)
-        {
-            sizeSize[i] = config["size"][i]["size"].AsInt;
-            sizeRate[i] = config["size"][i]["rate"].AsFloat;
-        }
-
-        shapeAvailability = new int[3];
-        for(int i = 0; i < 3; i++)
-        {
-            shapeAvailability[i] = config["shape"][i]["availability"].AsInt;
-        }
-
-        frostingAvailability = new int[3];
-        frostingOne = new int [3];
-        frostingTwo = new int[3];
-        frostingThree = new int[3];
-        frostingFour = new int[3];
-        for(int i = 0; i < 3; i++)
-        {
-            frostingAvailability[i] = config["frosting"][i]["availability"].AsInt;
-            frostingOne[i] = config["frosting"][i]["one"].AsInt;
-            frostingTwo[i] = config["frosting"][i]["two"].AsInt;
-            frostingThree[i] = config["frosting"][i]["three"].AsInt;
-            frostingFour[i] = config["frosting"][i]["four"].AsInt;
-        }
-        pipeTopPrice = new int[13];
-        for(int i = 0; i < 13; i++)
-        {
-            pipeTopPrice[i] = config["pipe_top"][i]["price"].AsInt;
-            pipeTopAvailability += config["pipe_top"][i]["availability"];
-        }
-
-        pipeEdgePrice = new int[15];
-        for (int i = 0; i < 15; i++)
-        {
-            pipeEdgePrice[i] = config["pipe_edge"][i]["price"].AsInt;
-            pipeEdgeAvailability += config["pipe_edge"][i]["availability"];
-        }
-
-        sprinklePrice = new int[2];
-        sprinkleAvailability = new int[2];
-        for(int i = 0; i < 2; i++)
-        {
-            sprinklePrice[i] = config["sprinkle"][i]["price"].AsInt;
-            sprinkleAvailability[i] = config["sprinkle"][i]["availability"].AsInt;
-        }
-
-        candlePrice = new int[11];
-        for(int i = 0; i < 11; i++)
-        {
-            candlePrice[i] = config["candle"][i]["price"].AsInt;
-            candleAvailability += config["candle"][i]["availability"];
-        }
-
-        figurePrice = new int[14];
-        for(int i = 0; i < 14; i++)
-        {
-            figurePrice[i] = config["figure"][i]["price"].AsInt;
-            figureAvailability += config["figure"][i]["availability"];
-        }
-
         if (serverVersion != localVersion)
-        {        
-            File.WriteAllText(Application.persistentDataPath + "/json.txt", json);
+        {
+            min_days = config["min_days"].AsInt;
+            flavourCount = config["flavour"].Count;
+            flavourName = new string[flavourCount];
+            flavourPrice = new int[flavourCount];
+            for (int i = 0; i < flavourCount; i++)
+            {
+                flavourName[i] = config["flavour"][i]["name"];
+                flavourPrice[i] = config["flavour"][i]["price"].AsInt;
+            }
+
+            sizeCount = config["size"].Count;
+            sizeSize = new int[sizeCount];
+            sizeRate = new float[sizeCount];
+            for (int i = 0; i < sizeCount; i++)
+            {
+                sizeSize[i] = config["size"][i]["size"].AsInt;
+                sizeRate[i] = config["size"][i]["rate"].AsFloat;
+            }
+
+            shapeAvailability = new int[3];
+            for (int i = 0; i < 3; i++)
+            {
+                shapeAvailability[i] = config["shape"][i]["availability"].AsInt;
+            }
+
+            frostingAvailability = new int[3];
+            frostingOne = new int[3];
+            frostingTwo = new int[3];
+            frostingThree = new int[3];
+            frostingFour = new int[3];
+            for (int i = 0; i < 3; i++)
+            {
+                frostingAvailability[i] = config["frosting"][i]["availability"].AsInt;
+                frostingOne[i] = config["frosting"][i]["one"].AsInt;
+                frostingTwo[i] = config["frosting"][i]["two"].AsInt;
+                frostingThree[i] = config["frosting"][i]["three"].AsInt;
+                frostingFour[i] = config["frosting"][i]["four"].AsInt;
+            }
+            pipeTopPrice = new int[13];
+            for (int i = 0; i < 13; i++)
+            {
+                pipeTopPrice[i] = config["pipe_top"][i]["price"].AsInt;
+                pipeTopAvailability += config["pipe_top"][i]["availability"];
+            }
+
+            pipeEdgePrice = new int[15];
+            for (int i = 0; i < 15; i++)
+            {
+                pipeEdgePrice[i] = config["pipe_edge"][i]["price"].AsInt;
+                pipeEdgeAvailability += config["pipe_edge"][i]["availability"];
+            }
+
+            sprinklePrice = new int[2];
+            sprinkleAvailability = new int[2];
+            for (int i = 0; i < 2; i++)
+            {
+                sprinklePrice[i] = config["sprinkle"][i]["price"].AsInt;
+                sprinkleAvailability[i] = config["sprinkle"][i]["availability"].AsInt;
+            }
+
+            candlePrice = new int[11];
+            for (int i = 0; i < 11; i++)
+            {
+                candlePrice[i] = config["candle"][i]["price"].AsInt;
+                candleAvailability += config["candle"][i]["availability"];
+            }
+
+            figurePrice = new int[14];
+            for (int i = 0; i < 14; i++)
+            {
+                figurePrice[i] = config["figure"][i]["price"].AsInt;
+                figureAvailability += config["figure"][i]["availability"];
+            }
+
+            if (serverVersion != localVersion)
+            {
+                File.WriteAllText(Application.persistentDataPath + "/json.txt", json);
+            }
+            setPlayerPrefs();
+            updateVersion();
         }
-        setPlayerPrefs();
+        
     }
 
     void setPlayerPrefs()

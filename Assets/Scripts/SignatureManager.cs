@@ -185,6 +185,7 @@ public class SignatureManager : MonoBehaviour
     
     void backToGrid()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         gridPanel.SetActive(true);
         detailPanel.SetActive(false);
     }

@@ -134,6 +134,7 @@ public class MyDataValidation : MonoBehaviour {
 
     public void backStart()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("StartMenu");
     }
     public void ok()

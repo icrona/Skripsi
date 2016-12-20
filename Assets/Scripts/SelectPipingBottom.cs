@@ -143,7 +143,7 @@ public class SelectPipingBottom : MonoBehaviour
         {
             colorButton[i].interactable = true;
         }
-
+        Camera.main.GetComponent<ButtonSound>().playSound();
         material[2].color = color[x];
         index = x;
         b.interactable = false;
@@ -168,6 +168,7 @@ public class SelectPipingBottom : MonoBehaviour
         for (int i = 0; i < transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(2).GetChild(current).childCount; i++)
         {
             transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(2).GetChild(current).GetChild(i).gameObject.SetActive(true);
+            Camera.main.GetComponent<ButtonSound>().playPiping();
             yield return new WaitForSeconds(0.02f);
         }
     }

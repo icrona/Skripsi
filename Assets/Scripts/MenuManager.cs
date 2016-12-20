@@ -19,12 +19,17 @@ public class MenuManager : MonoBehaviour {
 
     public InputField cakeName;
 
+    public GameObject info;
+    private GameObject[] infoList;
+
 
     private void Start () {
         menuList = new GameObject[transform.childCount];
+        infoList = new GameObject[transform.childCount];
         for (int i= 0;i< transform.childCount; i++)
         {
             menuList[i] = transform.GetChild(i).gameObject;
+            infoList[i] = info.transform.GetChild(i).gameObject;
         }
         index = 0;
         activeCurrMenu();
@@ -120,8 +125,10 @@ public class MenuManager : MonoBehaviour {
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
+            info.transform.GetChild(i).gameObject.SetActive(false);
         }
         transform.GetChild(index).gameObject.SetActive(true);
+        info.transform.GetChild(index).gameObject.SetActive(true);
     }
     public void lastMenu()
     {
@@ -132,11 +139,23 @@ public class MenuManager : MonoBehaviour {
     }
     public void goToHome()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("StartMenu");
     }
 
     public void goToOrder()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("Order");
+    }
+
+    public void openInfo()
+    {
+        info.SetActive(true);
+    }
+    public void closeInfo()
+    {
+        Camera.main.GetComponent<ButtonSound>().playSound();
+        info.SetActive(false);
     }
 }

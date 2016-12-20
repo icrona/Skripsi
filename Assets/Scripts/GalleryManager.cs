@@ -136,6 +136,7 @@ public class GalleryManager : MonoBehaviour {
         index = i;
         updateGalleryIndex();
         showCakeData();
+        Camera.main.GetComponent<ButtonSound>().playSound();
         galleryCanvas.SetActive(true);
         gridCanvas.SetActive(false);
     }
@@ -230,7 +231,8 @@ public class GalleryManager : MonoBehaviour {
     }
     public void back()
     {
-            gridCanvas.SetActive(true);
+        Camera.main.GetComponent<ButtonSound>().playSound();
+        gridCanvas.SetActive(true);
             galleryCanvas.SetActive(false);
             cakeDetails = false;
        
@@ -263,6 +265,7 @@ public class GalleryManager : MonoBehaviour {
     }
     public void toStart()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("StartMenu");
     }
 }

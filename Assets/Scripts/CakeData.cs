@@ -168,7 +168,6 @@ public class CakeData : MonoBehaviour
 
     public void showPreviewData()
     {
-        pricePanel.SetActive(false);
         collectData();
         for (int i = 0; i < numTier; i++)
         {
@@ -191,7 +190,6 @@ public class CakeData : MonoBehaviour
 
     public void resetPreviewData()
     {
-        pricePanel.SetActive(false);
         previewSize.text = "";
         previewFlavour.text = "";
         previewPrice.text = "";

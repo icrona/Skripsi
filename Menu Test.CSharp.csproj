@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\GalleryManager.cs" />
     <Compile Include="Assets\Scripts\HelpManager.cs" />
     <Compile Include="Assets\Scripts\HomePanelManager.cs" />
+    <Compile Include="Assets\Scripts\InfoManager.cs" />
     <Compile Include="Assets\Scripts\IntensityColor.cs" />
     <Compile Include="Assets\Scripts\KnifeAnimate.cs" />
     <Compile Include="Assets\Scripts\LoadDatabase.cs" />

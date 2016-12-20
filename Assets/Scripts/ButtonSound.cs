@@ -8,6 +8,7 @@ public class ButtonSound : MonoBehaviour {
     private AudioClip click;
     private AudioClip frosting;
     private AudioClip sprinkle;
+    private AudioClip piping;
     private AudioClip screenshot;
     private AudioClip cake;
     private Button button;
@@ -20,6 +21,7 @@ public class ButtonSound : MonoBehaviour {
         sprinkle = Resources.Load("Sound/sprinkle") as AudioClip;
         screenshot = Resources.Load("Sound/screenshot") as AudioClip;
         cake = Resources.Load("Sound/cake") as AudioClip;
+        piping = Resources.Load("Sound/piping") as AudioClip;
         gameObject.AddComponent<AudioSource>();
         source.clip = click;
         source.playOnAwake = false;
@@ -97,6 +99,14 @@ public class ButtonSound : MonoBehaviour {
         if (PlayerPrefs.GetInt("Sound") ==1)
         {
             source.PlayOneShot(screenshot);
+        }
+    }
+
+    public void playPiping()
+    {
+        if (PlayerPrefs.GetInt("Sound") == 1)
+        {
+            source.PlayOneShot(piping);
         }
     }
 }

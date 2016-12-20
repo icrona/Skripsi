@@ -7,6 +7,7 @@ public class StartMenu : MonoBehaviour {
     public GameObject loading;
     public GameObject exitConfirm;
     public GameObject panelConnection;
+
     public void toMain()
     {
         loading.SetActive(true);
@@ -41,4 +42,9 @@ public class StartMenu : MonoBehaviour {
         panelConnection.transform.GetChild(0).GetComponent<Text>().text = "No Internet Connection";
         panelConnection.transform.GetChild(1).gameObject.SetActive(false);
     }
+    public void tutorial()
+    {
+        Handheld.PlayFullScreenMovie("test.mp4", Color.black, FullScreenMovieControlMode.Hidden);
+    }
+
 }

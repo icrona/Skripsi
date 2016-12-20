@@ -205,6 +205,7 @@ public class OrderManager : MonoBehaviour {
     }
     public void goConfirm()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         menuLabel.text = "Confirmation";
         menuLabel.fontSize = 21;
         customerData.SetActive(false);
@@ -249,6 +250,7 @@ public class OrderManager : MonoBehaviour {
     }
     public void back()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         menuLabel.text = "Customer Data";
         menuLabel.fontSize = 24;
         confirmation.SetActive(false);
@@ -257,6 +259,7 @@ public class OrderManager : MonoBehaviour {
 
     public void toStart()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("StartMenu");
     }
 
@@ -309,6 +312,7 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            Camera.main.GetComponent<ButtonSound>().playSound();
             loadingText.text = "Finished Ordering";
             okay.SetActive(true);
         }
@@ -353,6 +357,7 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            Camera.main.GetComponent<ButtonSound>().playSound();
             loadingText.text = "Finished Ordering";
             okay.SetActive(true);
         }
@@ -360,6 +365,7 @@ public class OrderManager : MonoBehaviour {
     }
     public void close()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         loading.SetActive(false);
     }
 }

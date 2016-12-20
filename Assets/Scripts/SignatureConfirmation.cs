@@ -21,6 +21,7 @@ public class SignatureConfirmation : MonoBehaviour
     }
     public void showConfirmOrder()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         confirmation.SetActive(true);
         yesOrder.gameObject.SetActive(true);
         confirmText.text = "Proceed to Order ?";
@@ -28,17 +29,25 @@ public class SignatureConfirmation : MonoBehaviour
     }
     public void hideConfirm()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         show = -1;
     }
 
     public void confirmed()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         confirmation.SetActive(false);
         show = -1;
     }
     public void order()
     {
+        Camera.main.GetComponent<ButtonSound>().playSound();
         SceneManager.LoadScene("Order");
+    }
+    public void toStart()
+    {
+        Camera.main.GetComponent<ButtonSound>().playSound();
+        SceneManager.LoadScene("StartMenu");
     }
     private void Update()
     {
