@@ -32,10 +32,12 @@ public class ViewToggle : MonoBehaviour {
         if (viewToggle.isOn)
         {
             inView = 1;
+            viewToggle.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
         }
         else
         {
             inView = -1;
+            viewToggle.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         }
     }
    

@@ -122,13 +122,30 @@ public class MyDataValidation : MonoBehaviour {
         }
     }
 
-    public void saveData()
+    private void assignData(int userData)
     {
         PlayerPrefs.SetString("CustomerName", custName.text);
         PlayerPrefs.SetString("CustomerPhone", custPhone.text);
         PlayerPrefs.SetString("CustomerEmail", custEmail.text);
         PlayerPrefs.SetString("CustomerAddress", custAddress.text);
-        PlayerPrefs.SetInt("UserData", 1);
+        PlayerPrefs.SetInt("UserData", userData);
+    }
+
+    public void saveData()
+    {
+        assignData(1);
+        panel.transform.GetChild(0).GetComponent<Text>().text = "Your Data Have Been Saved";
+        panel.SetActive(true);
+    }
+
+    public void resetData()
+    {
+        custName.text = "";
+        custPhone.text = "";
+        custEmail.text = "";
+        custAddress.text = "";
+        assignData(0);
+        panel.transform.GetChild(0).GetComponent<Text>().text = "Your Data Have Been Reset";
         panel.SetActive(true);
     }
 

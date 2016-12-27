@@ -25,8 +25,8 @@ public class CakeRotate : MonoBehaviour
 
         rotateOnlyOnZ = false;
         rotateOnlyOnY = false;
-        rotationRateX = 0.2f;
-        rotationRateY = 0.1f;
+        rotationRateX = 0.5f;
+        rotationRateY = 0.5f;
 
         theCake = new GameObject[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)

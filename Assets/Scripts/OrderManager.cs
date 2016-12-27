@@ -290,6 +290,7 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            loading.transform.GetChild(2).gameObject.SetActive(false);
             loadingText.text = "No Internet Connection";
             okay.SetActive(true);
         }
@@ -312,6 +313,7 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            loading.transform.GetChild(2).gameObject.SetActive(false);
             Camera.main.GetComponent<ButtonSound>().playSound();
             loadingText.text = "Finished Ordering";
             okay.SetActive(true);
@@ -357,8 +359,10 @@ public class OrderManager : MonoBehaviour {
         }
         else
         {
+            loading.transform.GetChild(2).gameObject.SetActive(false);
             Camera.main.GetComponent<ButtonSound>().playSound();
-            loadingText.text = "Finished Ordering";
+            loadingText.text = "Thank you for your order Baker will contact you soon";
+
             okay.SetActive(true);
         }
 

@@ -18,6 +18,7 @@ public class AddText : MonoBehaviour
     public void add()
     {
         transform.parent.parent.GetComponent<CakeRotate>().enabled = false;
+        textText.interactable = true;
         textColor.SetActive(true);
         textText.text = "Add Text";
         PlayerPrefs.SetInt("TextTier", tier);

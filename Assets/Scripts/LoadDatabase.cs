@@ -16,7 +16,9 @@ public class LoadDatabase : MonoBehaviour {
 
     private string serverVersion;
     private string urlConfig;
+    private string urlProfile;
     private JSONNode config;
+    private JSONNode profile;
 
     private string logoURL;
     public Image logo;
@@ -64,12 +66,14 @@ public class LoadDatabase : MonoBehaviour {
         filepath = Application.persistentDataPath + "/CakeDB.sqlite";
         connectionString = "URI=file:" + filepath;
         urlConfig = "http://www.skripsweet.xyz/api/manage/config";
-        logoURL = "http://www.skripsweet.xyz/images/logo/logo.png";
-
+        urlProfile = "http://www.skripsweet.xyz/api/profile";
+        logoURL = "http://www.skripsweet.xyz/images/logo/";
 
         if (!File.Exists(filepath))
         {
             Debug.Log("First Time");
+            PlayerPrefs.SetString("LogoName", "logo.png");
+            getFirstDefaultLogo();
             writeFirstJSON();
             PlayerPrefs.SetInt("UserData", 0);
             PlayerPrefs.SetInt("Sound", 1);
@@ -87,7 +91,7 @@ public class LoadDatabase : MonoBehaviour {
                     dbCmd.CommandText = query;
                     dbCmd.ExecuteScalar();
 
-                    string defaultVersion = String.Format("INSERT INTO main.Version (Version) VALUES ('Initial Version')");
+                    string defaultVersion = String.Format("INSERT INTO main.Version (Version) VALUES ('default')");
                     dbCmd.CommandText = defaultVersion;
                     dbCmd.ExecuteScalar();
                     dbConnection.Close();
@@ -133,26 +137,67 @@ public class LoadDatabase : MonoBehaviour {
             }
         }
     }
-
-    IEnumerator getLogo()
+    void getLogo()
     {
+        StartCoroutine(getProfile((isUpdated) => { StartCoroutine(updateLogo(isUpdated)); }));
+    }
+    IEnumerator updateLogo(bool updated)
+    { 
         Texture2D tex;
-        tex = new Texture2D(800, 800, TextureFormat.DXT1, false);
-        WWW www = new WWW(logoURL);
-        yield return www;
-        www.LoadImageIntoTexture(tex);
+        tex = new Texture2D(800, 800, TextureFormat.ARGB32, false);
+        if (updated)
+        {                        
+            WWW www = new WWW(logoURL + PlayerPrefs.GetString("LogoName"));
+            yield return www;
+            www.LoadImageIntoTexture(tex);
+            File.WriteAllBytes(Application.persistentDataPath + "/logo.png", tex.EncodeToPNG());
+        }
+        else
+        {
+            byte[] bytes;
+            bytes = File.ReadAllBytes(Application.persistentDataPath + "/logo.png");
+            tex.LoadImage(bytes);
+        }
+
         Rect rec = new Rect(0, 0, tex.width, tex.height);
         logo.GetComponent<Image>().sprite = Sprite.Create(tex, rec, new Vector2(0.5f, 0.5f));
         Color color = logo.color;
         color.a = 1;
         logo.color = color;
+
     }
 
+    IEnumerator getProfile(Action<bool> action)
+    {
+        WWW www = new WWW(urlProfile);
+        yield return www;
+        if (www.error == null)
+        {
+            action(profileJSON(www.text));
+        }
+    }
+
+    bool profileJSON(string json)
+    {
+        profile = JSON.Parse(json);
+        PlayerPrefs.SetInt("MinDays", profile["min_days"].AsInt);
+        string logoname = profile["image"];
+        if (PlayerPrefs.GetString("LogoName") == logoname)
+        {
+            return false;
+        }
+        else
+        {
+            PlayerPrefs.SetString("LogoName", logoname);
+            return true;
+        }
+
+    }
     void testConnection(bool connect)
     {
         if (connect)
         {
-            StartCoroutine(getLogo());
+            getLogo();
             StartCoroutine(getJSON());
             infoText.text = "Okay";
             infoText.transform.parent.gameObject.SetActive(false);
@@ -160,12 +205,28 @@ public class LoadDatabase : MonoBehaviour {
         }
         else
         {
+            offlineLogo();
             getDefaultJSON();
             infoText.text = "No Internet Connection, You Can Not Open Signature Cake Menu And Order Cake, Click Okay To Continue Using This Apps";
             okay.gameObject.SetActive(true);
             signature.interactable = false;
             PlayerPrefs.SetInt("Connection", 0);
         }
+    }
+    void offlineLogo()
+    {
+        Texture2D tex;
+        tex = new Texture2D(800, 800, TextureFormat.ARGB32, false);
+        byte[] bytes;
+        bytes = File.ReadAllBytes(Application.persistentDataPath + "/logo.png");
+        tex.LoadImage(bytes);
+
+        Rect rec = new Rect(0, 0, tex.width, tex.height);
+        logo.GetComponent<Image>().sprite = Sprite.Create(tex, rec, new Vector2(0.5f, 0.5f));
+        Color color = logo.color;
+        color.a = 1;
+        logo.color = color;
+        logo.gameObject.SetActive(false);
     }
     void getDefaultJSON()
     {
@@ -178,6 +239,12 @@ public class LoadDatabase : MonoBehaviour {
         defaultJSON = (TextAsset)Resources.Load("json", typeof(TextAsset));
         defaultJSONcontent = defaultJSON.text;
         File.WriteAllText(Application.persistentDataPath + "/json.txt", defaultJSONcontent);
+    }
+
+    void getFirstDefaultLogo()
+    {
+        Texture2D logo = (Texture2D)Resources.Load("logo");
+        File.WriteAllBytes(Application.persistentDataPath + "/logo.png", logo.EncodeToPNG());
     }
 
     IEnumerator getJSON()
@@ -195,7 +262,6 @@ public class LoadDatabase : MonoBehaviour {
         serverVersion = config["version"];
         if (serverVersion != localVersion)
         {
-            min_days = config["min_days"].AsInt;
             flavourCount = config["flavour"].Count;
             flavourName = new string[flavourCount];
             flavourPrice = new int[flavourCount];
@@ -281,7 +347,7 @@ public class LoadDatabase : MonoBehaviour {
 
     void setPlayerPrefs()
     {
-        PlayerPrefs.SetInt("MinDays", min_days);
+
         PlayerPrefs.SetInt("NumOfFlavour", flavourCount);
         for(int i = 0; i < flavourCount; i++)
         {

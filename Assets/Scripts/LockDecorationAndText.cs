@@ -12,12 +12,12 @@ public class LockDecorationAndText : MonoBehaviour {
     public void decorationLock(bool isLocked)
     {
         if (isLocked) {
-            lockDecoration.GetComponent<Image>().sprite = locked;
+            lockDecoration.GetComponent<Image>().sprite = unlocked;
             colliderToggle(true,1);
         }
         else
         {
-            lockDecoration.GetComponent<Image>().sprite = unlocked;
+            lockDecoration.GetComponent<Image>().sprite = locked;
             colliderToggle(false,1);
         }
     }
@@ -26,12 +26,12 @@ public class LockDecorationAndText : MonoBehaviour {
     {
         if (isLocked)
         {
-            lockText.GetComponent<Image>().sprite = locked;
+            lockText.GetComponent<Image>().sprite = unlocked;
             colliderToggle(true, 2);
         }
         else
         {
-            lockText.GetComponent<Image>().sprite = unlocked;
+            lockText.GetComponent<Image>().sprite = locked;
             colliderToggle(false, 2);
         }
     }

@@ -36,9 +36,13 @@ public class SignatureManager : MonoBehaviour
     public GameObject cakeContents;
     CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
 
+    private int counter;
+    public GameObject loading;
+
     private Text[] cakeIndex;
     void Start()
     {
+        counter = -1;
         cakeCount = new int[3];
         panel = new GameObject[3];
         gridContainer = new GameObject[3];
@@ -88,6 +92,8 @@ public class SignatureManager : MonoBehaviour
         cakeImage = new string[3, max];
         tex = new Texture2D[3, max];
         cakes = new Sprite[3, max];
+
+        counter = cakeCount[0] + cakeCount[1] + cakeCount[2];
        
         for(int i = 0; i < 3; i++)
         {
@@ -100,6 +106,7 @@ public class SignatureManager : MonoBehaviour
                 cakePrice[i, j] = signatureCake[i][j]["price"].AsInt;
                 cakeImage[i, j] = signatureCake[i][j]["image"];               
                 StartCoroutine(getImage(cakeImage[i, j], i, j));
+
             }
             instantiatePrevNext(i);
             instantiateOrderBtn(i);
@@ -116,7 +123,16 @@ public class SignatureManager : MonoBehaviour
         cakes[i, j] = Sprite.Create(tex[i, j], new Rect(0, 0, 400, 400), new Vector2(0.5f, 0.5f));
         showGrid(i, j);
         generateDetails(i, j);
-        instantiateBackButton(i);      
+        instantiateBackButton(i);
+        counter--;      
+    }
+    void Update()
+    {
+        if (counter == 0)
+        {
+            loading.SetActive(false);
+            counter = -1;
+        }
     }
     void instantiateOrderBtn(int i)
     {

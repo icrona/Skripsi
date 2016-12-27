@@ -12,7 +12,7 @@ public class InfoManager : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    void closeInfo()
+    public void closeInfo()
     {
         Camera.main.GetComponent<ButtonSound>().playSound();
         gameObject.SetActive(false);
