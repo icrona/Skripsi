@@ -45,7 +45,7 @@ public class StartMenu : MonoBehaviour {
     }
     public void tutorial()
     {
-        Handheld.PlayFullScreenMovie("test.mp4", Color.black, FullScreenMovieControlMode.Hidden);
+        Handheld.PlayFullScreenMovie("tutorial.mp4", Color.black, FullScreenMovieControlMode.Hidden);
     }
 
 }
