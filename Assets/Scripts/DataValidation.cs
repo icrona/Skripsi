@@ -142,6 +142,7 @@ public class DataValidation : MonoBehaviour {
             custDelivDate.image.color = red;
             isValidDate = false;
             custDelivDate.placeholder.GetComponent<Text>().text = "Minimum " + PlayerPrefs.GetInt("MinDays") + " day(s) from today";
+            custDelivDate.text = "";
         }
         else
         {
