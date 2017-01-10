@@ -46,7 +46,7 @@ public class CakeData : MonoBehaviour
     public Text previewPrice;
 
     public GameObject pricePanel;
-
+    public GameObject viewToggle;
     void Start()
     {
         cSize = new int[3];
@@ -111,6 +111,10 @@ public class CakeData : MonoBehaviour
 
     public void showCakeNamePanel()
     {
+        if (viewToggle.GetComponent<ViewToggle>().viewToggle.GetComponent<Toggle>().isOn)
+        {
+            viewToggle.GetComponent<ViewToggle>().forceOff();
+        }
         takeScreenshot();
     }
     public void hideCakeNamePanel()
