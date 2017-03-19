@@ -63,6 +63,7 @@ public class SelectSprinkleSide : MonoBehaviour {
 
     void hideSprinkle()
     {
+        StopAllCoroutines();
         for (int i = 0; i < selectedSprinkle.transform.childCount; i++)
         {
             selectedSprinkle.transform.GetChild(i).gameObject.SetActive(false);

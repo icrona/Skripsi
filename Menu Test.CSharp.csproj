@@ -156,6 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\edwardian-script-itc\myfontsfree.txt" />
+    <None Include="Assets\Resources\Shader\3DText.shader" />
+    <None Include="Assets\Resources\Shader\NewSurfaceShader.shader" />
     <None Include="Assets\Resources\json.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

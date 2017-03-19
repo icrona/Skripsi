@@ -17,7 +17,6 @@ public class TextEdit : MonoBehaviour {
     public int tier;
     public int textIndex;
     private GameObject textField;
-    private bool touch;
     // Use this for initialization
     void Start () {
         TextPanel = transform.parent.parent.parent.parent.parent.parent.GetChild(0).GetChild(4).gameObject;
@@ -80,7 +79,7 @@ public class TextEdit : MonoBehaviour {
         if (transform.parent.parent.parent.GetSiblingIndex() == PlayerPrefs.GetInt("TextTier")
             && transform.GetSiblingIndex() == PlayerPrefs.GetInt("TextIndex"))
         {
-            transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = color[x];
+            transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.SetColor("_Color", color[x]);
         }
         index = x;
         b.interactable = false;
@@ -162,12 +161,12 @@ public class TextEdit : MonoBehaviour {
         slider.GetComponent<Slider>().value = 0.5f;
         for (int i=0;i<color.Length;i++)
         {
-            if (color[i] == (Vector4)transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color)
+            if (color[i] == (Vector4)transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.GetColor("_Color"))                   
             {
                 pickColor(colorButton[i], i);
                 if (i == 0)
                 {
-                    transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.white;
+                    transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                 }
             }
         }
@@ -185,7 +184,7 @@ public class TextEdit : MonoBehaviour {
                 hsl = RgbaToHsl(color[index]);
             if (color[index] == (Vector4)Color.white)
             {
-                transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.white;
+                transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.SetColor("_Color", Color.white);
             }
             else
             {
@@ -194,7 +193,7 @@ public class TextEdit : MonoBehaviour {
                     intensity = slider.GetComponent<Slider>().value;
                     hsl.z = intensity;
                     rgb = HslToRgba(hsl);
-                    transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color=rgb;
+                    transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.SetColor("_Color", rgb);
                 }
                 if (slider.GetComponent<Slider>().value < 0.5)
                 {
@@ -203,7 +202,8 @@ public class TextEdit : MonoBehaviour {
 
                     intensity = (slider.GetComponent<Slider>().value / 0.5f) * V;
                     V = intensity;
-                    transform.parent.GetChild(textIndex).GetComponent<TextMesh>().color = Color.HSVToRGB(H, S, V);
+                    transform.parent.GetChild(textIndex).GetComponent<Renderer>().material.SetColor("_Color", Color.HSVToRGB(H, S, V));
+
                 }
             }                
         }       

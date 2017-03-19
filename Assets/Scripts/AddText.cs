@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class AddText : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AddText : MonoBehaviour
     public InputField textText;
     public int index;
     public int tier;
+
+    public Material shaderText;
     void Start()
     {
         tier = transform.GetSiblingIndex();
@@ -34,8 +37,11 @@ public class AddText : MonoBehaviour
         transform.parent.rotation = Quaternion.Euler(90, 180, 0);
         text.transform.parent = transform.GetChild(index).GetChild(2);
         text.transform.localRotation = Quaternion.Euler(90, 180, 0);
+        Material clone = (Material)Instantiate(shaderText, transform.position, transform.rotation);
+        text.GetComponent<Renderer>().material = clone;
         releaseLock();
     }
+
 
     void releaseLock()
     {

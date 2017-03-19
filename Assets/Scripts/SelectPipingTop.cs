@@ -163,6 +163,7 @@ public class SelectPipingTop : MonoBehaviour {
 
     void hidePipe(int shape)
     {
+        StopAllCoroutines();
         for (int i = 0; i < transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).childCount; i++)
         {
             transform.GetChild(shape).GetChild(0).GetChild(0).GetChild(0).GetChild(current).GetChild(i).gameObject.SetActive(false);
